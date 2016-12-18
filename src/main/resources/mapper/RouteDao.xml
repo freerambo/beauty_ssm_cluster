@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.cruiser.dao.RouteDao">
+
+
+	<!--insert id="insertOrder">
+		INSERT INTO
+		_order(user_id,goods_id,title)
+		VALUES
+		(#{userId},#{goodsId},#{title})
+	</insert-->
+
+	<select id="fetchOneByMerchantId" resultType="Route">
+		SELECT *
+		FROM routes
+		WHERE merchant_id=#{merchantId}
+		limit 1
+	</select>
+
+	<select id="fetchOneByMerchantCode" resultType="Route">
+		SELECT a.*
+		FROM routes a INNER JOIN `merchants` b on a.`merchant_id` = b.`merchant_id`
+		WHERE b.`merchant_code` = #{merchantCode}
+		limit 1
+	</select>
+
+	<select id="queryByMerchantId" resultType="Route">
+		SELECT *
+		FROM routes
+		WHERE merchant_id=#{merchantId}
+	</select>
+
+	<select id="queryAll" resultType="Route">
+		SELECT *
+		FROM routes
+		ORDER BY
+		priority DESC
+		limit #{offset},#{limit}
+	</select>
+
+</mapper>

@@ -38,6 +38,26 @@ KEY `idx_user_id`(`user_id`),
 KEY `idx_goods_id`(`goods_id`)
 )ENGINE=INNODB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
+#begin
+CREATE TABLE `routes` (
+	`route_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '路由记录id',
+	`merchant_id` bigint(20) NOT NULL COMMENT '（外键）商户id',
+	`weixin_route` varchar(200) NULL COMMENT '微信跳转路由',
+	`alipay_route` varchar(200) NULL COMMENT '支付宝路由',
+	`priority` int(11) NULL DEFAULT 50 COMMENT '优先级（默认50，值越大优先度越高）',
+	PRIMARY KEY (`route_id`)
+) ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+COMMENT='各个商户路由记录配置';
+
+CREATE TABLE `merchants` (
+	`merchant_id` bigint NOT NULL,
+	`merchant_code` varchar(32) NOT NULL COMMENT '商户编号',
+	`merchant_name` varchar(200) NULL COMMENT '商户名称',
+	PRIMARY KEY (`merchant_id`)
+) ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+COMMENT='商户表';
 
 --插入初始数据
 INSERT INTO 

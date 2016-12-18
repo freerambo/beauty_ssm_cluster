@@ -28,6 +28,7 @@
 
 - 后台运行配置(可选)
     [参考Unix daemon](https://tomcat.apache.org/tomcat-9.0-doc/setup.html#Unix_daemon)
+    [参考2](http://www.cnblogs.com/super119/archive/2011/01/13/1935010.html)
     
 - 配置maven tomcat 自动deploy
     [settings 配置](https://maven.apache.org/settings.html)
