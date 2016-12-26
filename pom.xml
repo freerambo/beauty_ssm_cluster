@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.cruiser</groupId>
-    <artifactId>wozhi_route</artifactId>
+    <artifactId>wozhi_app</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -281,7 +281,7 @@
                     <update>true</update>
                     <!--指定项目路径-->
                     <!--path>/${project.build.finalName}</path-->
-                    <path>/route_app</path>
+                    <path>/wozhi_app</path>
                 </configuration>
 			</plugin>
 		</plugins>
