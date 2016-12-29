@@ -230,14 +230,15 @@
 		</dependency>
 		<!--mybatis 数据访问层 end -->
         <!--加签使用阿里sdk begin-->
-        <dependency>
+        <!--由于这个微信只用了sha1，而没有使用rsa加密，因此直接使用标准库即可-->
+        <!--dependency>
             <groupId>com.alipay.api</groupId>
             <artifactId>alipay-sdk-java</artifactId>
             <version>20161129201425</version>
-            <scope>system</scope>
+            <scope>system</scope-->
             <!--本地jar的路径,相对或者绝对都可以-->
-            <systemPath>${project.basedir}/lib/alipay-sdk-java20161129201425.jar</systemPath>
-        </dependency>
+            <!--systemPath>${project.basedir}/lib/alipay-sdk-java20161129201425.jar</systemPath>
+        </dependency-->
         <!--加签使用阿里sdk end-->
 	</dependencies>
 	<!-- Build Settings -->
