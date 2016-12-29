@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/wx_app")
+@RequestMapping("/wx_gateway")
 public class WeixinController {
 
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
@@ -19,8 +19,9 @@ public class WeixinController {
 	//@Autowired
 	//private RoutesService routesService;
 
-	@RequestMapping(value = "/sign/", method = RequestMethod
+	@RequestMapping(value = "/sign", method = RequestMethod
 			.GET)
+	@ResponseBody
 	public String confirmMsgSrc(
 			@RequestParam("signature") String signature,
 			@RequestParam("timestamp") String timestamp,

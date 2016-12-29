@@ -77,5 +77,14 @@
     <orderEntry type="library" name="Maven: com.dyuproject.protostuff:protostuff-api:1.0.8" level="project" />
     <orderEntry type="library" name="Maven: com.dyuproject.protostuff:protostuff-runtime:1.0.8" level="project" />
     <orderEntry type="library" name="Maven: com.dyuproject.protostuff:protostuff-collectionschema:1.0.8" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: com.alipay.api:alipay-sdk-java:20161129201425">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/alipay-sdk-java20161129201425.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
