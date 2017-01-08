@@ -3,6 +3,7 @@ package com.github.cruiser.web;
 import com.github.cruiser.service.UtilService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,8 @@ import java.util.Map;
 public class WeixinController {
 
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	private UtilService utilService;
 
 	@RequestMapping(value = "/sign", method = RequestMethod
 			.GET)
@@ -27,7 +30,7 @@ public class WeixinController {
 	    paramsMap.put("signature", signature);
 		paramsMap.put("timestamp", timestamp);
 		paramsMap.put("nonce", nonce);
-		return UtilService.sha1CheckContent(paramsMap,signature,"UTF-8")? echostr: "";
+		return utilService.sha1CheckContent(paramsMap,signature,"UTF-8")? echostr: "";
 	}
 
 }
