@@ -275,8 +275,8 @@
                 <configuration>
                     <!--参考：http://tomcat.apache.org/maven-plugin-trunk/tomcat7-maven-plugin/usage.html-->
                     <!--指定管理路径-->
-                    <!--url>http://localhost:8080/manager/text</url-->
-                    <url>http://wozhixixi.com:8080/manager/text</url>
+                    <url>http://localhost:8080/manager/text</url>
+                    <!--url>http://wozhixixi.com:8080/manager/text</url-->
                     <!--指定管理用户名密码，同时需配置settings.xml-->
                     <server>wozhi_server</server>
                     <update>true</update>

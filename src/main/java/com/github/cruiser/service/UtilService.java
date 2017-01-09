@@ -39,10 +39,14 @@ public class UtilService {
             String value = (String) params.get(key);
             content.append((i == 0 ? "" : "&") + key + "=" + value);
         }
+        LOG.info(content.toString());
         return content.toString();
     }
     public boolean sha1CheckContent(String content, String sign, String charset) {
         try {
+            for(Byte b: content.getBytes(charset)){
+                LOG.info(Integer.toHexString(b));
+            }
             MessageDigest alga = MessageDigest.getInstance("SHA-1");
             alga.update(content.getBytes(charset));
             byte[] digesta = alga.digest();
