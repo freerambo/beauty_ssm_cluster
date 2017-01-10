@@ -15,16 +15,18 @@ public class UtilService {
     private final Logger LOG = LoggerFactory.getLogger(UtilService.class);
 
     public boolean sha1CheckContent(Map<String, String> params, String sign, String charset) {
-        return sha1CheckContent(getSignCheckContentV2(params), sign, charset);
+        return sha1CheckContent(getSignCheckContentOfWeiXin(params), sign, charset);
     }
 
     /**
      * 得到待加密的明文字符串
-     *
+     * 注：微信验签字符串不需要整理成：
+	 * nonce=1015854264&timestamp=1483967880&token=4aba8b84486c97ffab3b60f6cac8c023
+	 * 只需要整理成101585426414839678804aba8b84486c97ffab3b60f6cac8c023即可
      * @param params
      * @return
      */
-    public String getSignCheckContentV2(Map<String, String> params) {
+    public String getSignCheckContentOfWeiXin(Map<String, String> params) {
         if (params == null) {
             return null;
         }
@@ -37,18 +39,16 @@ public class UtilService {
         for (int i = 0; i < keys.size(); i++) {
             String key = (String) keys.get(i);
             String value = (String) params.get(key);
-            content.append((i == 0 ? "" : "&") + key + "=" + value);
+            //content.append((i == 0 ? "" : "&") + key + "=" + value);
+            content.append(value);
         }
         LOG.info(content.toString());
         return content.toString();
     }
     public boolean sha1CheckContent(String content, String sign, String charset) {
         try {
-            for(Byte b: content.getBytes(charset)){
-                LOG.info(Integer.toHexString(b));
-            }
             MessageDigest alga = MessageDigest.getInstance("SHA-1");
-            alga.update(content.getBytes(charset));
+            alga.update(content.getBytes("utf-8"));
             byte[] digesta = alga.digest();
             String computedSign = byte2hex(digesta);
             LOG.info("本信息摘要是 :" + computedSign);
@@ -79,9 +79,9 @@ public class UtilService {
             } else {
                 hs = hs + stmp;
             }
-            if (n < bytes.length - 1) {
+            /*if (n < bytes.length - 1) {
                 hs = hs + ":";
-            }
+            }*/
         }
         return hs.toUpperCase();
     }
