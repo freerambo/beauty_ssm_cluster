@@ -23,6 +23,7 @@ public class UtilService {
      * 注：微信验签字符串不需要整理成：
 	 * nonce=1015854264&timestamp=1483967880&token=4aba8b84486c97ffab3b60f6cac8c023
 	 * 只需要整理成101585426414839678804aba8b84486c97ffab3b60f6cac8c023即可
+	 * (按照值的字典序，而不是key名称的字典序。)
      * @param params
      * @return
      */
@@ -34,12 +35,9 @@ public class UtilService {
         params.remove("signature");
 
         StringBuffer content = new StringBuffer();
-        List<String> keys = new ArrayList(params.keySet());
-        Collections.sort(keys);
-        for (int i = 0; i < keys.size(); i++) {
-            String key = (String) keys.get(i);
-            String value = (String) params.get(key);
-            //content.append((i == 0 ? "" : "&") + key + "=" + value);
+        List<String> values = new ArrayList(params.values());
+        Collections.sort(values);
+        for (String value: values) {
             content.append(value);
         }
         LOG.info(content.toString());
