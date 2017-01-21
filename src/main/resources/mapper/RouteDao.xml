@@ -14,6 +14,7 @@
 		SELECT *
 		FROM routes
 		WHERE merchant_id=#{merchantId}
+		ORDER BY priority desc
 		limit 1
 	</select>
 
@@ -21,6 +22,7 @@
 		SELECT a.*
 		FROM routes a INNER JOIN `merchants` b on a.`merchant_id` = b.`merchant_id`
 		WHERE b.`merchant_code` = #{merchantCode}
+		ORDER BY a.priority desc
 		limit 1
 	</select>
 

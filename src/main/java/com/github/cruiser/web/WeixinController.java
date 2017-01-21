@@ -35,7 +35,7 @@ public class WeixinController {
 		paramsMap.put("nonce", nonce);
 		paramsMap.put("token", token);
 		LOG.debug(paramsMap.toString());
-		return utilService.sha1CheckContent(paramsMap,signature,"UTF-8")? echostr: "";
+		return utilService.checkWeixinSignContent(paramsMap,signature,"UTF-8")? echostr: "";
 	}
 
 }

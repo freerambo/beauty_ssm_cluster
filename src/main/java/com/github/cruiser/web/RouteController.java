@@ -30,7 +30,7 @@ public class RouteController {
 		Route route = routesService.getHightestPriorityById(merchantId);
 		LOG.info("route: ");
 		LOG.info("-------------------------------");
-		LOG.info(route.toString());
+		LOG.info(null==route?"路由记录为空":route.toString());
 		LOG.info("-------------------------------");
 
 		String result = "";
@@ -43,7 +43,7 @@ public class RouteController {
 			result = "redirect:" + route.getAlipayRoute();
 		}
 		else {
-			//TODO
+			//TODO 404的页面其实还没有做
 			//result = "redirect:" + route.getAlipayRoute();
 			result = "404";
 		}
@@ -64,7 +64,7 @@ public class RouteController {
 		Route route = routesService.getHightestPriorityByCode(merchantCode);
 		LOG.info("route: ");
 		LOG.info("-------------------------------");
-		LOG.info(route.toString());
+		LOG.info(null==route?"路由记录为空":route.toString());
 		LOG.info("-------------------------------");
 
 		String result = "";
