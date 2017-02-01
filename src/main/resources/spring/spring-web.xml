@@ -44,7 +44,4 @@
 	<!--全局异常捕捉 -->
 	<bean class="com.github.cruiser.exception.GlobalExceptionResolver" />
 
-    <!--服务器配置文件-->
-    <context:property-placeholder location="classpath:wozhi_server.properties" ignore-unresolvable="true"/>
-
 </beans>

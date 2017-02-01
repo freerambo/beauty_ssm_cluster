@@ -32,7 +32,7 @@ public class UtilService {
      * @param params
      * @return
      */
-    public String getValuesContent(Map<String, String> params) {
+    private String getValuesContent(Map<String, String> params) {
         if (params == null) {
             return null;
         }
@@ -55,7 +55,7 @@ public class UtilService {
      * @param charset 暂不支持。
      * @return
      */
-    public String getSha1Digest(String content, String charset) {
+    private String getSha1Digest(String content, String charset) {
         try {
             MessageDigest alga = MessageDigest.getInstance("SHA-1");
             alga.update(content.getBytes("utf-8"));
@@ -79,7 +79,7 @@ public class UtilService {
      * @param bytes
      * @return
      */
-    public String byte2hex(byte[] bytes) {
+    private String byte2hex(byte[] bytes) {
         String hs = "";
         String stmp = "";
         for (int n = 0; n < bytes.length; n++) {
