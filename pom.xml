@@ -240,6 +240,18 @@
             <!--systemPath>${project.basedir}/lib/alipay-sdk-java20161129201425.jar</systemPath>
         </dependency-->
         <!--加签使用阿里sdk end-->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+        <!-- 用于http query string 格式化
+        https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.0-alpha4</version>
+        </dependency>
 	</dependencies>
 	<!-- Build Settings -->
 	<!--http://maven.apache.org/pom.html#Build_Settings -->
@@ -275,8 +287,8 @@
                 <configuration>
                     <!--参考：http://tomcat.apache.org/maven-plugin-trunk/tomcat7-maven-plugin/usage.html-->
                     <!--指定管理路径-->
-                    <url>http://localhost:8080/manager/text</url>
-                    <!--url>http://wozhixixi.com:8080/manager/text</url-->
+                    <!--url>http://localhost:8080/manager/text</url-->
+                    <url>http://wozhixixi.com:8080/manager/text</url>
                     <!--指定管理用户名密码，同时需配置settings.xml-->
                     <server>wozhi_server</server>
                     <update>true</update>

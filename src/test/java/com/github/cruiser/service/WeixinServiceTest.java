@@ -30,4 +30,12 @@ public class WeixinServiceTest {
 		Assert.assertNotNull(weixinService.getAccessToken());
 	}
 
+	@Test
+	public void testPushTemplateMsg() {
+		weixinService.pushTemplateMsg("o3g--vnH0WoX9KF0EyTeOa1REKhM",
+				"hehe1234567890",
+				"商户A",
+				"2016年06月07日19时24分","6504.09元");
+	}
+
 }

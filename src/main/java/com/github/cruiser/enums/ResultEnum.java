@@ -19,6 +19,11 @@ public enum ResultEnum {
 	TOKEN_IS_ILLICIT(99980002, "Token验证非法"), 
 	SESSION_IS_OUT_TIME(99980003, "会话超时"),
 
+	// 网络异常
+	HTTP_IO_ERROR(99980004, "http连接失败"),
+	HTTP_RESPONSE_ERROR(99980005, "http返回失败"),
+	// Weixin 异常 TODO
+
 	// 用户相关异常
 	INVALID_USER(1001001, "无效用户");
 

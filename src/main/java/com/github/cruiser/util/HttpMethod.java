@@ -14,6 +14,7 @@ import java.net.*;
  * Created by Qiming on 2016/9/29.
  */
 @Component
+@Deprecated
 public class HttpMethod {
 
 	private final Logger logger = Logger.getLogger(HttpMethod.class);
@@ -51,6 +52,7 @@ public class HttpMethod {
 			}else {
 				connect = (HttpURLConnection) url.openConnection();
 			}
+
 			connect.setRequestMethod(httpMethod);
 			connect.setConnectTimeout(timeout);
             logger.info("ResponseCode: "+connect.getResponseCode());
