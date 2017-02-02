@@ -34,6 +34,11 @@
     [settings 配置](https://maven.apache.org/settings.html)
     [Tomcat7 Maven Plugin配置](http://tomcat.apache.org/maven-plugin-trunk/tomcat7-maven-plugin/usage.html)
 
+- 配置redis
+    在ubuntu上安装，只需要运行make install 和 utils/install_server.sh
+    将`redis-server.exe redis.windows.conf`语句做成bat文件启动
+    [配置config 文件中的requirepass 达到验密的目的](http://redisdoc.com/connection/auth.html)
+
 - 配置mysql 
     略
     
