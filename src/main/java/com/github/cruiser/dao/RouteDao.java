@@ -7,15 +7,18 @@ import java.util.List;
 
 public interface RouteDao {
 
-	/**
-     * 插入订单明细
+    /**
+     * 插入
      *
-     * @param orderId
-     * @param userId
      * @return
      */
-    /*int insertOrder(@Param("userId") long userId,
-			@Param("goodsId") long goodsId, @Param("title") String title);*/
+    int insert(Route route);
+
+	/**
+     *
+     * @return
+     */
+    void update(Route route);
 
     /**
      * 通过id查询商户路由

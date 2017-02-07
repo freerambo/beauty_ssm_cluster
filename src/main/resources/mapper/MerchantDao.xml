@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.cruiser.dao.MerchantDao">
+
+
+    <insert id="insert" parameterType="Merchant" useGeneratedKeys="true"
+            keyProperty="merchantId">
+        INSERT INTO
+        merchants(merchant_code, merchant_name, open_id, create_time, enable)
+        VALUES
+        (#{merchantCode}, #{merchantName}, #{openId}, #{createTime}, #{enable})
+    </insert>
+
+    <update id="enableById">
+        UPDATE merchants
+        SET enable = 1
+        WHERE merchant_id = #{merchantId}
+    </update>
+
+    <update id="disableById">
+        UPDATE merchants
+        SET enable = 0
+        WHERE merchant_id = #{merchantId}
+    </update>
+
+    <update id="update" parameterType="Merchant">
+        UPDATE merchants
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantCode!=null">merchant_code=#{merchantCode},</if>
+            <if test="merchantName!=null">merchant_name=#{merchantName},</if>
+            <if test="openId!=null">open_id=#{openId},</if>
+            <if test="createTime!=null">create_time=#{createTime},</if>
+        </trim>
+        WHERE merchant_id = #{merchantId}
+    </update>
+
+    <select id="queryByMerchantCode" resultType="Merchant">
+        SELECT *
+        FROM merchants
+        WHERE
+        merchant_code = #{merchantCode}
+        ORDER BY create_time desc
+    </select>
+
+    <select id="queryByMerchantName" resultType="Merchant">
+        SELECT *
+        FROM merchants
+        WHERE
+        merchant_name like concat('%', #{merchantName}, '%')
+        ORDER BY create_time desc
+        limit #{offset},#{limit}
+    </select>
+
+    <select id="queryAll" resultType="Merchant">
+        SELECT *
+        FROM merchants
+        ORDER BY create_time desc
+        limit #{offset},#{limit}
+    </select>
+
+</mapper>
