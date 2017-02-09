@@ -25,6 +25,11 @@
 ##jackson dataformat xml的XmlMapper（可用于xml格式化，不过最终没有使用）
 - [参考](http://www.sojson.com/yasuoyihang.html)
 
+##mybatis 框架用法
+- [处理类关系中的一对一映射关系](https://www.ibm.com/developerworks/cn/opensource/os-cn-ibatis/)
+- [association实现延迟加载](http://www.cnblogs.com/selene/p/4631244.html)
+- [表实体对应关系的映射demo](http://www.cnblogs.com/selene/p/4627446.html)
+
 ##微信说明
 
 ###模版消息
