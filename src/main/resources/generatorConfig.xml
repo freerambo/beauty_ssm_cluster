@@ -4,39 +4,59 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <properties resource="jdbc.properties"/>
-    <context id="mysqlTables" targetRuntime="MyBatis3Simple">
+
+    <context id="WoZhiTables" targetRuntime="MyBatis3Simple">
+        <commentGenerator>
+            <property name="suppressAllComments" value="false" />
+            <!-- 默认设置为false，保留生成日期 -->
+            <property name="suppressDate" value="false" />
+            <property name="addRemarkComments" value="" />
+        </commentGenerator>
         <jdbcConnection driverClass="${jdbc.driverClassName}"
                         connectionURL="${jdbc.url}"
                         userId="${jdbc.username}" password="${jdbc.password}"/>
 
-        <!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
+        <!-- 强制将数据库中number等类型字段，生成为类型为BigDecimal类型， -->
         <javaTypeResolver>
-            <property name="forceBigDecimals" value="false"/>
+            <property name="forceBigDecimals" value="true"/>
         </javaTypeResolver>
 
         <!-- 生成model模型，对应的包，存放位置可以指定具体的路径,如/ProjectName/src，也可以使用MAVEN来自动生成 -->
-        <javaModelGenerator targetPackage="com.github.cruiser.entity"
-                            targetProject="MAVEN">
+        <javaModelGenerator targetPackage="com.github.cruiser.entity" targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
+        <!-- XMLMAPPER 方式开始 -->
         <!--对应的xml mapper文件  -->
-        <sqlMapGenerator targetPackage="mapper"
-                         targetProject="com.github.cruiser.mapper">
+        <!-- 由于javaClientGenerator使用了ANNOTATEDMAPPER方式生成，因此无需sqlMapGenerator节点 -->
+        <!--sqlMapGenerator targetPackage="com.github.cruiser.dao"
+                            targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <!-- 对应的dao接口 -->
         <javaClientGenerator type="XMLMAPPER"
                              targetPackage="com.github.cruiser.dao"
                              targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator-->
+        <!-- XMLMAPPER 方式结束-->
+
+        <!-- 对应的dao接口 -->
+        <!-- ANNOTATEDMAPPER方式开始-->
+        <javaClientGenerator type="ANNOTATEDMAPPER"
+                             targetPackage="com.github.cruiser.dao"
+                             targetProject="MAVEN">
+            <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
+        <!-- ANNOTATEDMAPPER方式结束-->
 
 
+        <!--table tableName="%" /-->
         <table tableName="merchants" domainObjectName="Merchant"/>
         <table tableName="orders" domainObjectName="Order"/>
         <table tableName="event_msg" domainObjectName="EventMsg"/>
         <table tableName="routes" domainObjectName="Route"/>
+        <table tableName="_user" domainObjectName="User"/>
     </context>
 </generatorConfiguration>

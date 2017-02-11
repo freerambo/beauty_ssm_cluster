@@ -30,6 +30,11 @@
 - [association实现延迟加载](http://www.cnblogs.com/selene/p/4631244.html)
 - [表实体对应关系的映射demo](http://www.cnblogs.com/selene/p/4627446.html)
 
+###mybatis 逆向工程
+- 使用了 mybatis-generator-maven-plugin 插件对mysql数据库进行逆向工程，自动生成model类和mapper类（使用注释方式描述sql语句）
+    由于mapper缺少自定义dao操作，因此使用dao类对mapper类进行继承的方式进行使用。
+    注意：由于配置文件指定targetProject为MAVEN，因此自动生成的model和mapper类都将在maven的target文件夹中，需先执行mybatis-generator:generate，或使用package。
+
 ##微信说明
 
 ###模版消息
