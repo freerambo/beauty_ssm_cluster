@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.Date;
 import java.util.List;
 
-public interface EventMsgDao {
+public interface EventMsgDao extends EventMsgMapper {
 
     /**
      * 按照通知的微信openid进行查询，
@@ -30,12 +30,5 @@ public interface EventMsgDao {
      * @return
      */
     List<EventMsg> queryByOrderId( @Param("orderId") long orderId);
-
-    /**
-     * 插入对象
-     *
-     * @return
-     */
-    int insert(EventMsg eventMsg);
 
 }

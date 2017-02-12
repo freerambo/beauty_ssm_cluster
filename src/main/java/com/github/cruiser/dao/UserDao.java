@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.github.cruiser.entity.User;
 
-public interface UserDao {
+public interface UserDao extends UserMapper{
 
 	/**
      * 根据手机号查询用户对象

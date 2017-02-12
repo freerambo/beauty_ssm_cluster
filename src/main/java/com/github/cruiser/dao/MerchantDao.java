@@ -3,10 +3,9 @@ package com.github.cruiser.dao;
 import com.github.cruiser.entity.Merchant;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
 
-public interface MerchantDao {
+public interface MerchantDao extends MerchantMapper {
 
     /**
      * 按照商户编号进行查询
@@ -45,13 +44,6 @@ public interface MerchantDao {
             @Param ("limit") int limit );
 
     /**
-     * 插入对象
-     *
-     * @return
-     */
-    int insert(Merchant merchant );
-
-    /**
      * 启用对象
      * @param merchantId
      */
@@ -63,9 +55,4 @@ public interface MerchantDao {
      */
     void disableById(@Param("merchantId") long merchantId);
 
-    /**
-     * 更新对象
-     * @param merchant
-     */
-    void update(Merchant merchant);
 }

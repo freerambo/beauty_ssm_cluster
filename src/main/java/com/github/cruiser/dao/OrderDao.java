@@ -5,17 +5,7 @@ import java.util.List;
 import com.github.cruiser.entity.Order;
 import org.apache.ibatis.annotations.Param;
 
-public interface OrderDao {
-
-	/**
-     * 插入订单明细
-     *
-     * @param userId
-     * @param goodsId
-     * @param title
-     * @return
-     */
-    int insertOrder(@Param("userId") long userId,@Param("goodsId") long goodsId, @Param("title")String title);
+public interface OrderDao extends OrderMapper{
 
     /**
      * 根据用户手机号查询订单

@@ -5,20 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface RouteDao {
-
-    /**
-     * 插入
-     *
-     * @return
-     */
-    int insert(Route route);
-
-	/**
-     *
-     * @return
-     */
-    void update(Route route);
+public interface RouteDao extends RouteMapper{
 
     /**
      * 通过id查询商户路由

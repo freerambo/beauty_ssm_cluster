@@ -2,10 +2,20 @@
 <!DOCTYPE generatorConfiguration
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 动态sql语句解释和使用http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html-->
+<!-- Example类使用说明http://mbg.cndocs.tk/generatedobjects/exampleClassUsage.html-->
+<!-- 配置参考，但其最佳实践，如第5点经验证，还是会自动覆盖。
+    http://git.oschina.net/free/Mybatis_Utils/blob/master/MybatisGeneator/MybatisGeneator.md-->
 <generatorConfiguration>
     <properties resource="jdbc.properties"/>
 
-    <context id="WoZhiTables" targetRuntime="MyBatis3Simple">
+    <context id="WoZhiTables" targetRuntime="MyBatis3">
+        <!-- 使用逻辑分页，非数据库分页语句，需要考虑是否对性能有影响，TODO -->
+        <!-- 参见http://xxgblog.com/2016/05/06/mybatis-generator-mysql-pagination/ -->
+        <!-- 参见http://www.hifreud.com/2015/03/06/mybatis-7-Pagination/ -->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+        <!-- 网上使用非拦截器的插件方式实现sql语句分页，http://xxgblog.com/2016/05/06/mybatis-generator-mysql-pagination/-->
+        <!-- 网上使用拦截器实现sql语句分页，http://blog.qiji.tech/archives/13305-->
         <commentGenerator>
             <property name="suppressAllComments" value="false" />
             <!-- 默认设置为false，保留生成日期 -->
@@ -29,8 +39,8 @@
 
         <!-- XMLMAPPER 方式开始 -->
         <!--对应的xml mapper文件  -->
-        <!-- 由于javaClientGenerator使用了ANNOTATEDMAPPER方式生成，因此无需sqlMapGenerator节点 -->
-        <!--sqlMapGenerator targetPackage="com.github.cruiser.dao"
+        <!-- 如果javaClientGenerator使用了ANNOTATEDMAPPER方式生成，就无需sqlMapGenerator节点 -->
+        <sqlMapGenerator targetPackage="com.github.cruiser.dao"
                             targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
@@ -39,24 +49,39 @@
                              targetPackage="com.github.cruiser.dao"
                              targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
-        </javaClientGenerator-->
+        </javaClientGenerator>
         <!-- XMLMAPPER 方式结束-->
 
         <!-- 对应的dao接口 -->
         <!-- ANNOTATEDMAPPER方式开始-->
-        <javaClientGenerator type="ANNOTATEDMAPPER"
+        <!--javaClientGenerator type="ANNOTATEDMAPPER"
                              targetPackage="com.github.cruiser.dao"
                              targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
-        </javaClientGenerator>
+        </javaClientGenerator-->
         <!-- ANNOTATEDMAPPER方式结束-->
 
 
+        <!-- Mapper xml文件解释http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html-->
         <!--table tableName="%" /-->
-        <table tableName="merchants" domainObjectName="Merchant"/>
-        <table tableName="orders" domainObjectName="Order"/>
-        <table tableName="event_msg" domainObjectName="EventMsg"/>
-        <table tableName="routes" domainObjectName="Route"/>
-        <table tableName="_user" domainObjectName="User"/>
+        <table tableName="merchants" domainObjectName="Merchant">
+            <generatedKey column="merchant_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="orders" domainObjectName="Order">
+            <generatedKey column="order_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="event_msg" domainObjectName="EventMsg">
+            <generatedKey column="event_msg_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="routes" domainObjectName="Route">
+            <generatedKey column="route_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="_user" domainObjectName="User" >
+            <generatedKey column="user_id" sqlStatement="MySql" identity="true" />
+        </table>
     </context>
 </generatorConfiguration>
