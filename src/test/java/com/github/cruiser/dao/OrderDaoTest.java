@@ -23,11 +23,11 @@ public class OrderDaoTest {
 
 	@Test
 	public void testInsertOrder() {
-		Goods goods=goodsDao.queryAll(0, 1).get(0);
+		/*Goods goods=goodsDao.queryAll(0, 1).get(0);
 		System.out.println(goods);
 		int result=orderDao.insertOrder(1000,goods.getGoodsId(),goods.getTitle());
 		System.out.println("testInsertOrder result:"+result);
-		System.out.println("--------------------------");
+		System.out.println("--------------------------");*/
 	}
 
 	@Test

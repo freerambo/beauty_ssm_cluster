@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.github.cruiser.cache.RedisCache;
 import com.github.cruiser.dao.UserDao;
+import com.github.cruiser.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.cruiser.entity.User;
 import com.github.cruiser.service.UserService;
 
 @Service

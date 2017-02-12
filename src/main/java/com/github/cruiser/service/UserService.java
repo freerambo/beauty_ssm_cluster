@@ -1,8 +1,8 @@
 package com.github.cruiser.service;
 
-import java.util.List;
-
 import com.github.cruiser.entity.User;
+
+import java.util.List;
 
 public interface UserService {
 

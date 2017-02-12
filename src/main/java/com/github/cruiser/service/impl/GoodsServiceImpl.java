@@ -5,10 +5,10 @@ import com.github.cruiser.dao.GoodsDao;
 import com.github.cruiser.dao.OrderDao;
 import com.github.cruiser.dao.UserDao;
 import com.github.cruiser.entity.Goods;
+import com.github.cruiser.entity.User;
 import com.github.cruiser.enums.ResultEnum;
 import com.github.cruiser.exception.BizException;
 import com.github.cruiser.service.GoodsService;
-import com.github.cruiser.entity.User;
 import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +77,7 @@ public class GoodsServiceImpl implements GoodsService {
 			}
 		} else {
 
-			int inserCount = orderDao.insertOrder(user.getUserId(), goodsId, "普通买卖");
+			/*int inserCount = orderDao.insertOrder(user.getUserId(), goodsId, "普通买卖");
 			if (inserCount <= 0) {
 				// 买卖失败
 				throw new BizException(ResultEnum.DB_UPDATE_RESULT_ERROR.getMsg());
@@ -93,7 +93,7 @@ public class GoodsServiceImpl implements GoodsService {
 					cache.deleteCacheWithPattern("getGoodsList*");
 					LOG.info("delete cache with key: getGoodsList*");
 				}
-			}
+			}*/
 		}
 	}
 
