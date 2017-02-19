@@ -1,29 +1,41 @@
 package com.github.cruiser.dao;
 
 import com.github.cruiser.entity.Route;
+import com.github.cruiser.enums.GatewayType;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface RouteDao extends RouteMapper{
+public interface RouteDao extends RouteMapper {
 
     /**
      * 通过id查询商户路由
+     *
      * @param merchantId
      * @return
      */
     List<Route> fetchOneByMerchantId(@Param("merchantId") long merchantId);
 
-	/**
-	 * 通过商户编号查询商户路由
-	 * @param merchantCode
-	 * @return
-	 */
+    /**
+     * 通过商户id（非商户编号）得到该网关类型中最高优先级的路由记录
+     * @param merchantId
+     * @param gatewayType
+     * @return
+     */
+    Route fetchHightestPriorityByMerchantId(@Param("merchantId") long merchantId, GatewayType gatewayType);
+
+    /**
+     * 通过商户编号查询商户路由
+     *
+     * @param merchantCode
+     * @return
+     */
     List<Route> fetchOneByMerchantCode(@Param("merchantCode") String
-            merchantCode);
+                                               merchantCode);
 
     /**
      * 查询商户所有路由
+     *
      * @param merchantId
      * @return
      */
@@ -31,6 +43,7 @@ public interface RouteDao extends RouteMapper{
 
     /**
      * 根据偏移量查询列表
+     *
      * @param offset
      * @param limit
      * @return

@@ -12,7 +12,7 @@ public interface MerchantDao extends MerchantMapper {
      * @param merchantCode
      * @return
      */
-    List<Merchant> queryByMerchantCode(
+    Merchant queryByMerchantCode(
             @Param("merchantCode") String merchantCode);
 
     /**

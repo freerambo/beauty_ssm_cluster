@@ -35,7 +35,7 @@
         <javaModelGenerator targetPackage="com.github.cruiser.entity" targetProject="MAVEN">
             <property name="enableSubPackages" value="true"/>
             <!-- TODO 实现model的基类中toString方法，以方便日志格式化打印。-->
-            <!--property name="rootClass" value="" /-->
+            <property name="rootClass" value="com.github.cruiser.entity.AbstractEntity" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
@@ -66,20 +66,28 @@
 
         <!-- Mapper xml文件解释http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html-->
         <!--table tableName="%" /-->
-        <table tableName="merchants" domainObjectName="Merchant">
-            <generatedKey column="merchant_id" sqlStatement="MySql" identity="true" />
-        </table>
-
-        <table tableName="orders" domainObjectName="Order">
-            <generatedKey column="order_id" sqlStatement="MySql" identity="true" />
-        </table>
-
-        <table tableName="event_msg" domainObjectName="EventMsg">
+        <table tableName="wozhi_event_msg" domainObjectName="EventMsg">
             <generatedKey column="event_msg_id" sqlStatement="MySql" identity="true" />
         </table>
 
-        <table tableName="routes" domainObjectName="Route">
+        <table tableName="wozhi_merchant" domainObjectName="Merchant">
+            <generatedKey column="merchant_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="wozhi_order" domainObjectName="Order">
+            <generatedKey column="order_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="wozhi_route" domainObjectName="Route">
             <generatedKey column="route_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="wozhi_saler" domainObjectName="Saler" >
+            <generatedKey column="saler_id" sqlStatement="MySql" identity="true" />
+        </table>
+
+        <table tableName="wozhi_upstream" domainObjectName="Upstream" >
+            <generatedKey column="upstream_id" sqlStatement="MySql" identity="true" />
         </table>
 
         <table tableName="_user" domainObjectName="User" >

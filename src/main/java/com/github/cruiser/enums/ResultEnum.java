@@ -25,7 +25,10 @@ public enum ResultEnum {
 	// Weixin 异常 TODO
 
 	// 用户相关异常
-	INVALID_USER(1001001, "无效用户");
+	INVALID_USER(1001001, "无效用户"),
+
+	//数据异常
+	RESOURCE_NOT_EXIST(404, "资源不存在");
 
 	private int state;
 

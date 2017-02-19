@@ -5,7 +5,7 @@
     <groupId>com.github.cruiser</groupId>
     <artifactId>wozhi_app</artifactId>
     <packaging>war</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
