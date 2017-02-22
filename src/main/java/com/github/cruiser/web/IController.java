@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -128,6 +127,6 @@ public interface IController<T extends AbstractEntity> {
      */
     @RequestMapping(value = "/{id}",
             method = RequestMethod.DELETE)
-    public ResponseEntity<T> deleteEntity(@PathVariable("id") long id);
+    public ResponseEntity<Void> deleteEntity(@PathVariable("id") long id);
 
 }
