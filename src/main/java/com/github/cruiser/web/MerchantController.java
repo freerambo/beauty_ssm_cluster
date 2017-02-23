@@ -1,5 +1,6 @@
 package com.github.cruiser.web;
 
+import com.github.cruiser.entity.Cashier;
 import com.github.cruiser.entity.Merchant;
 import com.github.cruiser.entity.Route;
 import org.slf4j.Logger;
@@ -46,7 +47,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setSettlementBank("人民银行广东省支行");
         merchant.setSettlementAccount("4001122341432432");
         merchant.setSettlementName("李四");
-        merchant.setCashiersMobile("13800000001,13800000002");
         merchant.setHandlingCharge(new BigDecimal("0.01"));
         merchant.setSalerCode("1234566");
         merchant.setSalerReward(new BigDecimal("0.5"));
@@ -54,7 +54,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setIsEnable(true);
         merchant.setAttachmentUrl("/upload/pics/1111.png");
         merchant.setQrCode("http://wozhixixi.com/");
-        merchant.setOpenId("ffdsakjfjalkjfdsaljfdksalj");
         merchant.setGmtCreate(new Date());
         merchant.setGmtModified(new Date());
         merchant.setModifiedPerson("王五");
@@ -65,8 +64,7 @@ public class MerchantController implements IController<Merchant> {
 
     @RequestMapping(value = "",
             params = {"merchant_code", "merchant_type", "boss_certificate_number",
-                    "settlement_account", "cashiers_mobile", "saler_code", "open_id",
-                    "limit", "offset"},
+                    "settlement_account", "saler_code", "limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Merchant>> getBySelective(@RequestParam Map params) {
@@ -84,7 +82,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setSettlementBank("人民银行广东省支行");
         merchant.setSettlementAccount("4001122341432432");
         merchant.setSettlementName("李四");
-        merchant.setCashiersMobile("13800000001,13800000002");
         merchant.setHandlingCharge(new BigDecimal("0.01"));
         merchant.setSalerCode("1234566");
         merchant.setSalerReward(new BigDecimal("0.5"));
@@ -92,7 +89,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setIsEnable(true);
         merchant.setAttachmentUrl("/upload/pics/1111.png");
         merchant.setQrCode("http://wozhixixi.com/");
-        merchant.setOpenId("ffdsakjfjalkjfdsaljfdksalj");
         merchant.setGmtCreate(new Date());
         merchant.setGmtModified(new Date());
         merchant.setModifiedPerson("王五");
@@ -119,7 +115,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setSettlementBank("人民银行广东省支行");
         merchant.setSettlementAccount("4001122341432432");
         merchant.setSettlementName("李四");
-        merchant.setCashiersMobile("13800000001,13800000002");
         merchant.setHandlingCharge(new BigDecimal("0.01"));
         merchant.setSalerCode("1234566");
         merchant.setSalerReward(new BigDecimal("0.5"));
@@ -127,7 +122,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setIsEnable(true);
         merchant.setAttachmentUrl("/upload/pics/1111.png");
         merchant.setQrCode("http://wozhixixi.com/");
-        merchant.setOpenId("ffdsakjfjalkjfdsaljfdksalj");
         merchant.setGmtCreate(new Date());
         merchant.setGmtModified(new Date());
         merchant.setModifiedPerson("王五");
@@ -236,7 +230,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setSettlementBank("人民银行广东省支行");
         merchant.setSettlementAccount("4001122341432432");
         merchant.setSettlementName("李四");
-        merchant.setCashiersMobile("13800000001,13800000002");
         merchant.setHandlingCharge(new BigDecimal("0.01"));
         merchant.setSalerCode("1234566");
         merchant.setSalerReward(new BigDecimal("0.5"));
@@ -244,7 +237,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setIsEnable(true);
         merchant.setAttachmentUrl("/upload/pics/1111.png");
         merchant.setQrCode("http://wozhixixi.com/");
-        merchant.setOpenId("ffdsakjfjalkjfdsaljfdksalj");
         merchant.setGmtCreate(new Date());
         merchant.setGmtModified(new Date());
         return new ResponseEntity<Merchant>(merchant, HttpStatus.OK);
@@ -270,7 +262,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setSettlementBank("人民银行广东省支行");
         merchant.setSettlementAccount("4001122341432432");
         merchant.setSettlementName("李四");
-        merchant.setCashiersMobile("13800000001,13800000002");
         merchant.setHandlingCharge(new BigDecimal("0.01"));
         merchant.setSalerCode("1234566");
         merchant.setSalerReward(new BigDecimal("0.5"));
@@ -278,7 +269,6 @@ public class MerchantController implements IController<Merchant> {
         merchant.setIsEnable(true);
         merchant.setAttachmentUrl("/upload/pics/1111.png");
         merchant.setQrCode("http://wozhixixi.com/");
-        merchant.setOpenId("ffdsakjfjalkjfdsaljfdksalj");
         merchant.setGmtCreate(new Date());
         merchant.setGmtModified(new Date());
         return new ResponseEntity<Merchant>(merchant, HttpStatus.OK);
@@ -303,5 +293,19 @@ public class MerchantController implements IController<Merchant> {
 
          */
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @RequestMapping(value = "/{id}?action=signin",
+            params = {"open_id"},
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> signinCashier(@PathVariable("id")long id,
+                                                  @RequestParam("open_id") String open_id,
+                                                  @RequestBody Cashier entity,
+                                                  UriComponentsBuilder ucBuilder) {
+        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 }

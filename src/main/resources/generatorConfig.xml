@@ -90,6 +90,10 @@
             <generatedKey column="upstream_id" sqlStatement="MySql" identity="true" />
         </table>
 
+        <table tableName="wozhi_merchant_cashier" domainObjectName="Cashier" >
+            <generatedKey column="cashier_id" sqlStatement="MySql" identity="true" />
+        </table>
+
         <table tableName="_user" domainObjectName="User" >
             <generatedKey column="user_id" sqlStatement="MySql" identity="true" />
         </table>

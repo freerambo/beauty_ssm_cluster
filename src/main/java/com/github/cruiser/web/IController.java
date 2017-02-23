@@ -33,19 +33,6 @@ public interface IController<T extends AbstractEntity> {
     public ResponseEntity<List<T>> getByLimit(@RequestParam("limit") int limit,
                                               @RequestParam("offset") int offset);
 
-    /*
-     * 根据属性筛选实体资源
-     * 示例：
-     * <pre>
-     *     public ResponseEntiry getBySelectiveParam(
-     * @RequestParam(value="param1", required=false) String param1,
-     * @RequestParam(value="param2", required = false) String param2)
-     * </pre>
-     *
-     * @param params 筛选参数，按照实际标明
-     * @return
-     */
-    //public ResponseEntity<List<T>> getBySelective(Map params);
 
     /**
      * 通过id获取某一实体资源
