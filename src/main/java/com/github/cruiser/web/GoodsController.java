@@ -22,6 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/goods")
+@Deprecated
 public abstract class GoodsController {
 	
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());

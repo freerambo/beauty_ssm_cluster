@@ -28,8 +28,8 @@ public class UpstreamController implements IController<Upstream> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Upstream>> getByLimit(@RequestParam("limit") int limit,
-                                                     @RequestParam("offset") int offset) {
+    public ResponseEntity<List<Upstream>> getEntityListByLimit(@RequestParam("limit") int limit,
+                                                               @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Upstream upstream = new Upstream();

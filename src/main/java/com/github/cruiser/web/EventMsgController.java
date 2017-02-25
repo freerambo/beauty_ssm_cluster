@@ -27,8 +27,8 @@ public class EventMsgController implements IController<EventMsg> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EventMsg>> getByLimit(@RequestParam("limit") int limit,
-                                                     @RequestParam("offset") int offset) {
+    public ResponseEntity<List<EventMsg>> getEntityListByLimit(@RequestParam("limit") int limit,
+                                                               @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         EventMsg eventMsg = new EventMsg();
@@ -52,47 +52,37 @@ public class EventMsgController implements IController<EventMsg> {
     }
 
     @Override
-    @RequestMapping(value = "/{id}",
+    /*@RequestMapping(value = "/{id}",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)*/
     public ResponseEntity<EventMsg> updateEntity(@PathVariable("id")long id, @RequestBody EventMsg entity, UriComponentsBuilder ucBuilder) {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        EventMsg eventMsg = new EventMsg();
-        eventMsg.setGmtCreate(new Date());
-        eventMsg.setGmtModified(new Date());
-        return new ResponseEntity<EventMsg>(eventMsg, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @Override
-    @RequestMapping(value = "/{id}",
+    /*@RequestMapping(value = "/{id}",
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)*/
     public ResponseEntity<EventMsg> updateEntityBySelective(@PathVariable("id")long id, @RequestBody EventMsg entity, UriComponentsBuilder
             ucBuilder) {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        EventMsg eventMsg = new EventMsg();
-        eventMsg.setGmtCreate(new Date());
-        eventMsg.setGmtModified(new Date());
-        return new ResponseEntity<EventMsg>(eventMsg, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @Override
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.DELETE)
+    /*@RequestMapping(value = "/{id}",
+            method = RequestMethod.DELETE)*/
     public ResponseEntity<Void> deleteEntity(@PathVariable("id") long id) {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @Override
-    @RequestMapping(value = "",
+    /*@RequestMapping(value = "",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
+            consumes = MediaType.APPLICATION_JSON_VALUE)*/
     public ResponseEntity<Void> createEntity(@RequestBody EventMsg entity, UriComponentsBuilder ucBuilder) {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
 }

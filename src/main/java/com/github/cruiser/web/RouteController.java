@@ -28,8 +28,8 @@ public class RouteController implements IController<Route> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Route>> getByLimit(@RequestParam("limit") int limit,
-                                                     @RequestParam("offset") int offset) {
+    public ResponseEntity<List<Route>> getEntityListByLimit(@RequestParam("limit") int limit,
+                                                            @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Route route = new Route();

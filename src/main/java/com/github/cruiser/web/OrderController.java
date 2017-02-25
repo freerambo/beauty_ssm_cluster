@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +28,8 @@ public class OrderController implements IController<Order> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Order>> getByLimit(@RequestParam("limit") int limit,
-                                                     @RequestParam("offset") int offset) {
+    public ResponseEntity<List<Order>> getEntityListByLimit(@RequestParam("limit") int limit,
+                                                            @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Order order = new Order();
@@ -53,48 +54,55 @@ public class OrderController implements IController<Order> {
         return ResponseEntity.ok(order);
     }
 
-    @Override
     @RequestMapping(value = "/{id}",
-            method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Order> updateEntity(@PathVariable("id")long id, @RequestBody Order entity, UriComponentsBuilder ucBuilder) {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Order order = new Order();
-        order.setGmtCreate(new Date());
-        order.setGmtModified(new Date());
-        return new ResponseEntity<Order>(order, HttpStatus.OK);
-    }
-
-    @Override
-    @RequestMapping(value = "/{id}",
+            params = {"settle_order_state", "settle_state", "settle_amt", "settle_time"},
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Order> updateEntityBySelective(@PathVariable("id")long id, @RequestBody Order entity, UriComponentsBuilder
-            ucBuilder) {
+    public ResponseEntity<Order> updateEntityByParams(@RequestParam("settle_order_state") String settleOrderState,
+                                                      @RequestParam("settle_state") String settleState,
+                                                      @RequestParam("settle_amt") BigDecimal settleAmt,
+                                                      @RequestParam("settle_time") Date settleTime ) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Order order = new Order();
         order.setGmtCreate(new Date());
         order.setGmtModified(new Date());
-        return new ResponseEntity<Order>(order, HttpStatus.OK);
+        order.setModifiedPerson("王五");
+        return ResponseEntity.ok(order);
     }
 
     @Override
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.DELETE)
+    /*@RequestMapping(value = "/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)*/
+    public ResponseEntity<Order> updateEntity(@PathVariable("id")long id, @RequestBody Order entity, UriComponentsBuilder ucBuilder) {
+        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    @Override
+    /*@RequestMapping(value = "/{id}",
+            method = RequestMethod.PATCH,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)*/
+    public ResponseEntity<Order> updateEntityBySelective(@PathVariable("id")long id, @RequestBody Order entity, UriComponentsBuilder
+            ucBuilder) {
+        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    @Override
+    /*@RequestMapping(value = "/{id}",
+            method = RequestMethod.DELETE)*/
     public ResponseEntity<Void> deleteEntity(@PathVariable("id") long id) {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @Override
-    @RequestMapping(value = "",
+    /*@RequestMapping(value = "",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
+            consumes = MediaType.APPLICATION_JSON_VALUE)*/
     public ResponseEntity<Void> createEntity(@RequestBody Order entity, UriComponentsBuilder ucBuilder) {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
 }

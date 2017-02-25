@@ -30,8 +30,8 @@ public interface IController<T extends AbstractEntity> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<T>> getByLimit(@RequestParam("limit") int limit,
-                                              @RequestParam("offset") int offset);
+    public ResponseEntity<List<T>> getEntityListByLimit(@RequestParam("limit") int limit,
+                                                        @RequestParam("offset") int offset);
 
 
     /**

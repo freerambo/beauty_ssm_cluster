@@ -19,16 +19,19 @@ public interface EventMsgDao extends EventMsgMapper {
      * @return
      */
     List<EventMsg> queryByFromUserName(@Param("offset") int offset, @Param("limit") int limit,
-                            @Param("fromUserName") String fromUserName);
+                                       @Param("fromUserName") String fromUserName);
 
-	 /**
+    /**
      * 按照订单号进行查询，
      * 提供偏移量查询功能
      * 创建时间倒序
      *
-     * @param orderId
+     * @param offset
+     * @param limit
+     * @param orderNumber
      * @return
      */
-    List<EventMsg> queryByOrderId( @Param("orderId") long orderId);
+    List<EventMsg> queryByOrderNumber(@Param("offset") int offset, @Param("limit") int limit,
+                                      @Param("orderNumber") long orderNumber);
 
 }

@@ -28,8 +28,8 @@ public class SalerController implements IController<Saler> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Saler>> getByLimit(@RequestParam("limit") int limit,
-                                                     @RequestParam("offset") int offset) {
+    public ResponseEntity<List<Saler>> getEntityListByLimit(@RequestParam("limit") int limit,
+                                                            @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Saler saler = new Saler();

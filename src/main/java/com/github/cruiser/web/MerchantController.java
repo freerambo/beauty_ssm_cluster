@@ -31,8 +31,8 @@ public class MerchantController implements IController<Merchant> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Merchant>> getByLimit(@RequestParam("limit") int limit,
-                                                     @RequestParam("offset") int offset) {
+    public ResponseEntity<List<Merchant>> getEntityListByLimit(@RequestParam("limit") int limit,
+                                                               @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Merchant merchant = new Merchant();

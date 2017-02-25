@@ -16,6 +16,7 @@ import com.github.cruiser.service.UserService;
 
 @Controller
 @RequestMapping("/user")
+@Deprecated
 public class UserController {
 
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());

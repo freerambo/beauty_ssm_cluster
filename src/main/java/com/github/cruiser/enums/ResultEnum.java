@@ -28,7 +28,8 @@ public enum ResultEnum {
 	INVALID_USER(1001001, "无效用户"),
 
 	//数据异常
-	RESOURCE_NOT_EXIST(404, "资源不存在");
+	RESOURCE_NOT_EXIST(404, "资源不存在"),
+	PARAM_ERROR(99980006, "参数错误");
 
 	private int state;
 
