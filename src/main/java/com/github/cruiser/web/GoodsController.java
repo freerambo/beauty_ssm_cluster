@@ -22,7 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/goods")
-public class GoodsController {
+public abstract class GoodsController {
 	
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 

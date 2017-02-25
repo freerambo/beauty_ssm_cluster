@@ -1,7 +1,6 @@
 package com.github.cruiser.web;
 
-import com.github.cruiser.entity.Route;
-import com.github.cruiser.entity.Route;
+import com.github.cruiser.entity.EventMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -16,8 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/routes")
-public class RouteController implements IController<Route> {
+@RequestMapping(value = "/event_msgs")
+public class EventMsgController implements IController<EventMsg> {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
     //@Autowired
@@ -28,16 +27,15 @@ public class RouteController implements IController<Route> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Route>> getByLimit(@RequestParam("limit") int limit,
+    public ResponseEntity<List<EventMsg>> getByLimit(@RequestParam("limit") int limit,
                                                      @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        route.setModifiedPerson("王五");
-        List<Route> list = new ArrayList<>();
-        list.add(route);
+        EventMsg eventMsg = new EventMsg();
+        eventMsg.setGmtCreate(new Date());
+        eventMsg.setGmtModified(new Date());
+        List<EventMsg> list = new ArrayList<>();
+        list.add(eventMsg);
         return ResponseEntity.ok(list);
     }
 
@@ -45,13 +43,12 @@ public class RouteController implements IController<Route> {
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Route> getEntityById(@PathVariable("id") long id) {
+    public ResponseEntity<EventMsg> getEntityById(@PathVariable("id") long id) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        route.setModifiedPerson("王五");
-        return ResponseEntity.ok(route);
+        EventMsg eventMsg = new EventMsg();
+        eventMsg.setGmtCreate(new Date());
+        eventMsg.setGmtModified(new Date());
+        return ResponseEntity.ok(eventMsg);
     }
 
     @Override
@@ -59,12 +56,12 @@ public class RouteController implements IController<Route> {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Route> updateEntity(@PathVariable("id")long id, @RequestBody Route entity, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<EventMsg> updateEntity(@PathVariable("id")long id, @RequestBody EventMsg entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        return new ResponseEntity<Route>(route, HttpStatus.OK);
+        EventMsg eventMsg = new EventMsg();
+        eventMsg.setGmtCreate(new Date());
+        eventMsg.setGmtModified(new Date());
+        return new ResponseEntity<EventMsg>(eventMsg, HttpStatus.OK);
     }
 
     @Override
@@ -72,13 +69,13 @@ public class RouteController implements IController<Route> {
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Route> updateEntityBySelective(@PathVariable("id")long id, @RequestBody Route entity, UriComponentsBuilder
+    public ResponseEntity<EventMsg> updateEntityBySelective(@PathVariable("id")long id, @RequestBody EventMsg entity, UriComponentsBuilder
             ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        return new ResponseEntity<Route>(route, HttpStatus.OK);
+        EventMsg eventMsg = new EventMsg();
+        eventMsg.setGmtCreate(new Date());
+        eventMsg.setGmtModified(new Date());
+        return new ResponseEntity<EventMsg>(eventMsg, HttpStatus.OK);
     }
 
     @Override
@@ -93,7 +90,7 @@ public class RouteController implements IController<Route> {
     @RequestMapping(value = "",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createEntity(@RequestBody Route entity, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> createEntity(@RequestBody EventMsg entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.CREATED);
     }

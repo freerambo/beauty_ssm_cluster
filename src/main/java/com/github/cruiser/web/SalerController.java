@@ -1,7 +1,7 @@
 package com.github.cruiser.web;
 
 import com.github.cruiser.entity.Route;
-import com.github.cruiser.entity.Route;
+import com.github.cruiser.entity.Saler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -16,8 +16,8 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/routes")
-public class RouteController implements IController<Route> {
+@RequestMapping(value = "/salers")
+public class SalerController implements IController<Saler> {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
     //@Autowired
@@ -28,16 +28,16 @@ public class RouteController implements IController<Route> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Route>> getByLimit(@RequestParam("limit") int limit,
+    public ResponseEntity<List<Saler>> getByLimit(@RequestParam("limit") int limit,
                                                      @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        route.setModifiedPerson("王五");
-        List<Route> list = new ArrayList<>();
-        list.add(route);
+        Saler saler = new Saler();
+        saler.setGmtCreate(new Date());
+        saler.setGmtModified(new Date());
+        saler.setModifiedPerson("王五");
+        List<Saler> list = new ArrayList<>();
+        list.add(saler);
         return ResponseEntity.ok(list);
     }
 
@@ -45,13 +45,13 @@ public class RouteController implements IController<Route> {
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Route> getEntityById(@PathVariable("id") long id) {
+    public ResponseEntity<Saler> getEntityById(@PathVariable("id") long id) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        route.setModifiedPerson("王五");
-        return ResponseEntity.ok(route);
+        Saler saler = new Saler();
+        saler.setGmtCreate(new Date());
+        saler.setGmtModified(new Date());
+        saler.setModifiedPerson("王五");
+        return ResponseEntity.ok(saler);
     }
 
     @Override
@@ -59,12 +59,12 @@ public class RouteController implements IController<Route> {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Route> updateEntity(@PathVariable("id")long id, @RequestBody Route entity, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Saler> updateEntity(@PathVariable("id")long id, @RequestBody Saler entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        return new ResponseEntity<Route>(route, HttpStatus.OK);
+        Saler saler = new Saler();
+        saler.setGmtCreate(new Date());
+        saler.setGmtModified(new Date());
+        return new ResponseEntity<Saler>(saler, HttpStatus.OK);
     }
 
     @Override
@@ -72,13 +72,13 @@ public class RouteController implements IController<Route> {
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Route> updateEntityBySelective(@PathVariable("id")long id, @RequestBody Route entity, UriComponentsBuilder
+    public ResponseEntity<Saler> updateEntityBySelective(@PathVariable("id")long id, @RequestBody Saler entity, UriComponentsBuilder
             ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        return new ResponseEntity<Route>(route, HttpStatus.OK);
+        Saler saler = new Saler();
+        saler.setGmtCreate(new Date());
+        saler.setGmtModified(new Date());
+        return new ResponseEntity<Saler>(saler, HttpStatus.OK);
     }
 
     @Override
@@ -93,9 +93,22 @@ public class RouteController implements IController<Route> {
     @RequestMapping(value = "",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createEntity(@RequestBody Route entity, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> createEntity(@RequestBody Saler entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "?action=search",
+            params = {"saler_name", "limit", "offset"},
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Saler>> signinCashier(@RequestParam("saler_name") String salerName,
+                                                 @RequestParam("limit") int limit,
+                                                 @RequestParam("offset") int offset) {
+        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
+        List<Saler> list = new ArrayList<>();
+        list.add(new Saler());
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 }

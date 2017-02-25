@@ -1,6 +1,5 @@
 package com.github.cruiser.web;
 
-import com.github.cruiser.entity.Cashier;
 import com.github.cruiser.entity.Upstream;
 import com.github.cruiser.entity.Route;
 import org.slf4j.Logger;
@@ -12,11 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/upstreams")
@@ -147,11 +144,13 @@ public class UpstreamController implements IController<Upstream> {
             params = {"upstream_name", "limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Upstream> signinCashier(@RequestParam("upstream_name") String upstreamName,
+    public ResponseEntity<List<Upstream>> signinCashier(@RequestParam("upstream_name") String upstreamName,
                                                  @RequestParam("limit") int limit,
                                                  @RequestParam("offset") int offset) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        return new ResponseEntity<>(new Upstream(), HttpStatus.OK);
+        List<Upstream> list = new ArrayList<Upstream>();
+        list.add(new Upstream());
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 }
