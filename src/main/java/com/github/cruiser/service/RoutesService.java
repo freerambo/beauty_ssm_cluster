@@ -5,7 +5,7 @@ import com.github.cruiser.enums.GatewayType;
 
 import java.util.List;
 
-public interface RoutesService extends CommonResourceService<Route>  {
+public interface RoutesService extends CommonResourceService<Route> {
 
     /**
      * 获取优先级最高的路由记录
@@ -13,7 +13,7 @@ public interface RoutesService extends CommonResourceService<Route>  {
      * @param merchantId
      */
     String getHightestPriorityById(long merchantId,
-                                  GatewayType gatewayType);
+                                   GatewayType gatewayType);
 
     /**
      * 获取优先级最高的路由记录
@@ -21,6 +21,13 @@ public interface RoutesService extends CommonResourceService<Route>  {
      * @param merchantCode
      */
     String getHightestPriorityByCode(String merchantCode,
-                                    GatewayType gatewayType);
+                                     GatewayType gatewayType);
 
+    List<Route> getRouteEntityByMerchantId(long merchantId,
+                                           int offset,
+                                           int limit);
+
+    List<Route> getRouteEntityByUpstreamId(long upstreamId,
+                                           int offset,
+                                           int limit);
 }

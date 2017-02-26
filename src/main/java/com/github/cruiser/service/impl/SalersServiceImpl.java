@@ -27,7 +27,7 @@ public class SalersServiceImpl implements SalersService {
 
     @Override
     public List<Saler> getEntityListByLimit(int offset, int limit) {
-        RowBounds rowBounds = new RowBounds(0, 10);
+        RowBounds rowBounds = new RowBounds(offset, limit);
         SalerExample example = new SalerExample();
         List<Saler> list = salerDao.selectByExampleWithRowbounds(example, rowBounds);
         return list;

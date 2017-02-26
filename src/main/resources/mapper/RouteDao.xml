@@ -42,6 +42,14 @@
 		SELECT *
 		FROM routes
 		WHERE merchant_id=#{merchantId}
+		limit #{offset},#{limit}
+	</select>
+
+	<select id="queryByUpstreamId" resultType="Route">
+		SELECT *
+		FROM routes
+		WHERE upstream_id=#{upstreamId}
+		limit #{offset},#{limit}
 	</select>
 
 	<select id="queryAll" resultType="Route">

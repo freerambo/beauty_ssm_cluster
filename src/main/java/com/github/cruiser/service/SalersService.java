@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface SalersService extends CommonResourceService<Saler> {
 
-    List<Saler> querySalerByName(String salerName,
-                                 int limit,
-                                 int offset);
+    List<Saler> querySalerByName(String salerName, int limit, int offset);
 
 }

@@ -25,7 +25,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public List<Order> getEntityListByLimit(int offset, int limit) {
-        RowBounds rowBounds = new RowBounds(0, 10);
+        RowBounds rowBounds = new RowBounds(offset, limit);
         OrderExample example = new OrderExample();
         List<Order> list = orderDao.selectByExampleWithRowbounds(example, rowBounds);
         return list;

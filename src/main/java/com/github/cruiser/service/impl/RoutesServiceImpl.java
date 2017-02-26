@@ -42,6 +42,16 @@ public class RoutesServiceImpl implements RoutesService {
     }
 
     @Override
+    public List<Route> getRouteEntityByMerchantId(long merchantId, int offset, int limit) {
+        return routeDao.queryByMerchantId(merchantId, offset, limit);
+    }
+
+    @Override
+    public List<Route> getRouteEntityByUpstreamId(long upstreamId, int offset, int limit) {
+        return routeDao.queryByUpstreamId(upstreamId, offset, limit);
+    }
+
+    @Override
     public String getHightestPriorityById(long merchantId,
                                           GatewayType gatewayType) {
         Route route = routeDao.fetchHightestPriorityByMerchantId(merchantId,

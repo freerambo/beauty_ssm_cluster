@@ -21,7 +21,7 @@ public class EventMsgsServiceImpl implements EventMsgsService {
 
     @Override
     public List<EventMsg> getEntityListByLimit(int offset, int limit) {
-        RowBounds rowBounds = new RowBounds(0, 10);
+        RowBounds rowBounds = new RowBounds(offset, limit);
         EventMsgExample example = new EventMsgExample();
         List<EventMsg> list = eventMsgDao.selectByExampleWithRowbounds(example, rowBounds);
         return list;

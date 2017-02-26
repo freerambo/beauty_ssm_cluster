@@ -18,6 +18,7 @@ public interface RouteDao extends RouteMapper {
 
     /**
      * 通过商户id（非商户编号）得到该网关类型中最高优先级的路由记录
+     *
      * @param merchantId
      * @param gatewayType
      * @return
@@ -39,7 +40,9 @@ public interface RouteDao extends RouteMapper {
      * @param merchantId
      * @return
      */
-    List<Route> queryByMerchantId(@Param("merchantId") long merchantId);
+    List<Route> queryByMerchantId(@Param("merchantId") long merchantId,
+                                  @Param("offset") int offset,
+                                  @Param("limit") int limit);
 
     /**
      * 根据偏移量查询列表
@@ -50,4 +53,8 @@ public interface RouteDao extends RouteMapper {
      */
     List<Route> queryAll(@Param("offset") int offset, @Param("limit") int
             limit);
+
+    List<Route> queryByUpstreamId(@Param("upstreamId") long upstreamId,
+                                  @Param("offset") int offset,
+                                  @Param("limit") int limit);
 }
