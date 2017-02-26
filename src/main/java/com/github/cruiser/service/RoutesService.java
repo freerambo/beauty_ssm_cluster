@@ -5,16 +5,7 @@ import com.github.cruiser.enums.GatewayType;
 
 import java.util.List;
 
-public interface RoutesService {
-
-    /**
-     * 根据偏移量查询路由列表
-     *
-     * @param offset
-     * @param limit
-     * @return
-     */
-    List<Route> getRoutesList(int offset, int limit);
+public interface RoutesService extends CommonResourceService<Route>  {
 
     /**
      * 获取优先级最高的路由记录

@@ -5,11 +5,13 @@ import com.github.cruiser.dao.RouteDao;
 import com.github.cruiser.dao.UpstreamDao;
 import com.github.cruiser.entity.Merchant;
 import com.github.cruiser.entity.Route;
+import com.github.cruiser.entity.RouteExample;
 import com.github.cruiser.entity.Upstream;
 import com.github.cruiser.enums.GatewayType;
 import com.github.cruiser.enums.ResultEnum;
 import com.github.cruiser.exception.BizException;
 import com.github.cruiser.service.RoutesService;
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +29,13 @@ public class RoutesServiceImpl implements RoutesService {
     private MerchantDao merchantDao;
     @Autowired
     private RouteDao routeDao;
-    /*@Autowired
-    private RedisCache cache;*/
-
-    @Override
-    public List<Route> getRoutesList(int offset, int limit) {
-        List<Route> result = routeDao.queryAll(offset, limit);
-        return result;
-    }
 
     @Override
     public String getHightestPriorityByCode(String merchantCode,
-                                           GatewayType gatewayType) {
+                                            GatewayType gatewayType) {
         Merchant merchant = merchantDao.queryByMerchantCode(merchantCode);
-        if (null!=merchant){
-            LOG.debug("商户号不存在："+merchantCode);
+        if (null != merchant) {
+            LOG.debug("商户号不存在：" + merchantCode);
             throw new BizException(ResultEnum.RESOURCE_NOT_EXIST.getMsg());
         }
         return getHightestPriorityById(merchant.getMerchantId(), gatewayType);
@@ -49,24 +43,59 @@ public class RoutesServiceImpl implements RoutesService {
 
     @Override
     public String getHightestPriorityById(long merchantId,
-                                         GatewayType gatewayType) {
+                                          GatewayType gatewayType) {
         Route route = routeDao.fetchHightestPriorityByMerchantId(merchantId,
                 gatewayType);
-        if(null!=route){
-            LOG.debug("路由记录不存在："+merchantId);
+        if (null != route) {
+            LOG.debug("路由记录不存在：" + merchantId);
             throw new BizException(ResultEnum.RESOURCE_NOT_EXIST.getMsg());
         }
         Upstream upstream = upstreamDao.selectByPrimaryKey(route.getUpstreamId());
-        if(null!=upstream){
-            LOG.debug("上游记录不存在："+route.getUpstreamId());
+        if (null != upstream) {
+            LOG.debug("上游记录不存在：" + route.getUpstreamId());
             throw new BizException(ResultEnum.RESOURCE_NOT_EXIST.getMsg());
         }
-        if (GatewayType.WEIXIN_GATEWAY.equals(gatewayType)){
+        if (GatewayType.WEIXIN_GATEWAY.equals(gatewayType)) {
             return upstream.getWeixinGatewayUrl() + route.getQueryString();
-        }else if (GatewayType.ALIPAY_GATEWAY.equals(gatewayType)){
+        } else if (GatewayType.ALIPAY_GATEWAY.equals(gatewayType)) {
             return upstream.getAlipayGatewayUrl() + route.getQueryString();
-        }else{
+        } else {
             throw new BizException(ResultEnum.RESOURCE_NOT_EXIST.getMsg());
         }
+    }
+
+    @Override
+    public List<Route> getEntityListByLimit(int offset, int limit) {
+        return routeDao.selectByExampleWithRowbounds(new RouteExample(),
+                new RowBounds(offset, limit));
+    }
+
+    @Override
+    public Route getEntityById(long id) {
+        return routeDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void insertEntity(Route entity) {
+        routeDao.insert(entity);
+    }
+
+    @Override
+    public Route updateEntity(long id, Route entity) {
+        entity.setRouteId(id);
+        routeDao.updateByPrimaryKey(entity);
+        return routeDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Route updateEntityBySelective(long id, Route entity) {
+        entity.setRouteId(id);
+        routeDao.updateByPrimaryKeySelective(entity);
+        return routeDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteEntity(long id) {
+        routeDao.deleteByPrimaryKey(id);
     }
 }

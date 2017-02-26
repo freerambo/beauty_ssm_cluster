@@ -2,8 +2,10 @@ package com.github.cruiser.web;
 
 import com.github.cruiser.entity.Route;
 import com.github.cruiser.entity.Route;
+import com.github.cruiser.service.RoutesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,8 +22,8 @@ import java.util.List;
 public class RouteController implements IController<Route> {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
-    //@Autowired
-    //UserService userService;  //Service which will do all data retrieval/manipulation work
+    @Autowired
+    RoutesService service;
 
     @Override
     @RequestMapping(value = "",
@@ -32,13 +34,7 @@ public class RouteController implements IController<Route> {
                                                             @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        route.setModifiedPerson("王五");
-        List<Route> list = new ArrayList<>();
-        list.add(route);
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(service.getEntityListByLimit(offset, limit));
     }
 
     @Override
@@ -47,11 +43,7 @@ public class RouteController implements IController<Route> {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Route> getEntityById(@PathVariable("id") long id) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        route.setModifiedPerson("王五");
-        return ResponseEntity.ok(route);
+        return ResponseEntity.ok(service.getEntityById(id));
     }
 
     @Override
@@ -61,10 +53,7 @@ public class RouteController implements IController<Route> {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Route> updateEntity(@PathVariable("id")long id, @RequestBody Route entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        return new ResponseEntity<Route>(route, HttpStatus.OK);
+        return new ResponseEntity<Route>(service.updateEntity(id, entity), HttpStatus.OK);
     }
 
     @Override
@@ -75,10 +64,7 @@ public class RouteController implements IController<Route> {
     public ResponseEntity<Route> updateEntityBySelective(@PathVariable("id")long id, @RequestBody Route entity, UriComponentsBuilder
             ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Route route = new Route();
-        route.setGmtCreate(new Date());
-        route.setGmtModified(new Date());
-        return new ResponseEntity<Route>(route, HttpStatus.OK);
+        return new ResponseEntity<Route>(service.updateEntityBySelective(id, entity), HttpStatus.OK);
     }
 
     @Override
@@ -86,6 +72,7 @@ public class RouteController implements IController<Route> {
             method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteEntity(@PathVariable("id") long id) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
+        service.deleteEntity(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
@@ -95,6 +82,7 @@ public class RouteController implements IController<Route> {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createEntity(@RequestBody Route entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
+        service.insertEntity(entity);
         return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.CREATED);
     }
 
