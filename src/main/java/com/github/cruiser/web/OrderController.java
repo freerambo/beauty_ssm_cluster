@@ -1,9 +1,10 @@
 package com.github.cruiser.web;
 
 import com.github.cruiser.entity.Order;
+import com.github.cruiser.service.OrdersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +20,8 @@ import java.util.List;
 public class OrderController implements IController<Order> {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
-    //@Autowired
-    //UserService userService;  //Service which will do all data retrieval/manipulation work
+    @Autowired
+    OrdersService service;
 
     @Override
     @RequestMapping(value = "",
@@ -32,13 +32,7 @@ public class OrderController implements IController<Order> {
                                                             @RequestParam("offset") int offset) {
 
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Order order = new Order();
-        order.setGmtCreate(new Date());
-        order.setGmtModified(new Date());
-        order.setModifiedPerson("王五");
-        List<Order> list = new ArrayList<>();
-        list.add(order);
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(service.getEntityListByLimit(offset, limit));
     }
 
     @Override
@@ -47,11 +41,7 @@ public class OrderController implements IController<Order> {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Order> getEntityById(@PathVariable("id") long id) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Order order = new Order();
-        order.setGmtCreate(new Date());
-        order.setGmtModified(new Date());
-        order.setModifiedPerson("王五");
-        return ResponseEntity.ok(order);
+        return ResponseEntity.ok(service.getEntityById(id));
     }
 
     @RequestMapping(value = "/{id}",
@@ -59,16 +49,14 @@ public class OrderController implements IController<Order> {
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Order> updateEntityByParams(@RequestParam("settle_order_state") String settleOrderState,
+    public ResponseEntity<Order> updateEntityByParams(@PathVariable("id") long id,
+                                                      @RequestParam("settle_order_state") String settleOrderState,
                                                       @RequestParam("settle_state") String settleState,
                                                       @RequestParam("settle_amt") BigDecimal settleAmt,
-                                                      @RequestParam("settle_time") Date settleTime ) {
+                                                      @RequestParam("settle_time") Date settleTime) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        Order order = new Order();
-        order.setGmtCreate(new Date());
-        order.setGmtModified(new Date());
-        order.setModifiedPerson("王五");
-        return ResponseEntity.ok(order);
+        return ResponseEntity.ok(service.updateEntityByParams(id,
+                settleOrderState, settleState, settleAmt, settleTime));
     }
 
     @Override
@@ -76,7 +64,7 @@ public class OrderController implements IController<Order> {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)*/
-    public ResponseEntity<Order> updateEntity(@PathVariable("id")long id, @RequestBody Order entity, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Order> updateEntity(@PathVariable("id") long id, @RequestBody Order entity, UriComponentsBuilder ucBuilder) {
         return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
@@ -85,7 +73,7 @@ public class OrderController implements IController<Order> {
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)*/
-    public ResponseEntity<Order> updateEntityBySelective(@PathVariable("id")long id, @RequestBody Order entity, UriComponentsBuilder
+    public ResponseEntity<Order> updateEntityBySelective(@PathVariable("id") long id, @RequestBody Order entity, UriComponentsBuilder
             ucBuilder) {
         return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
