@@ -1,17 +1,16 @@
 package com.github.cruiser.web;
 
 import com.github.cruiser.entity.EventMsg;
+import com.github.cruiser.service.EventMsgsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,8 +18,8 @@ import java.util.List;
 public class EventMsgController implements IController<EventMsg> {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
-    //@Autowired
-    //UserService userService;  //Service which will do all data retrieval/manipulation work
+    @Autowired
+    EventMsgsService service;
 
     @Override
     @RequestMapping(value = "",
@@ -30,13 +29,8 @@ public class EventMsgController implements IController<EventMsg> {
     public ResponseEntity<List<EventMsg>> getEntityListByLimit(@RequestParam("limit") int limit,
                                                                @RequestParam("offset") int offset) {
 
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        EventMsg eventMsg = new EventMsg();
-        eventMsg.setGmtCreate(new Date());
-        eventMsg.setGmtModified(new Date());
-        List<EventMsg> list = new ArrayList<>();
-        list.add(eventMsg);
-        return ResponseEntity.ok(list);
+        LOG.debug("enter: " + Thread.currentThread().getStackTrace()[1].getMethodName());
+        return ResponseEntity.ok(service.getEntityListByLimit(offset, limit));
     }
 
     @Override
@@ -45,10 +39,31 @@ public class EventMsgController implements IController<EventMsg> {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EventMsg> getEntityById(@PathVariable("id") long id) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        EventMsg eventMsg = new EventMsg();
-        eventMsg.setGmtCreate(new Date());
-        eventMsg.setGmtModified(new Date());
-        return ResponseEntity.ok(eventMsg);
+        return ResponseEntity.ok(service.getEntityById(id));
+    }
+
+    @RequestMapping(value = "",
+            params = {"user_openid", "limit", "offset"},
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EventMsg>> getEntityListByOpenid(@RequestParam("user_openid") String userOpenid,
+                                                                @RequestParam("limit") int limit,
+                                                                @RequestParam("offset") int offset) {
+
+        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
+        return ResponseEntity.ok(service.getEntityListByOpenid(userOpenid, limit, offset));
+    }
+
+    @RequestMapping(value = "",
+            params = {"order_number", "limit", "offset"},
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EventMsg>> getEntityListByOrderNumber(@RequestParam("order_number") String orderNumber,
+                                                                     @RequestParam("limit") int limit,
+                                                                     @RequestParam("offset") int offset) {
+
+        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
+        return ResponseEntity.ok(service.getEntityListByOpenid(orderNumber, limit, offset));
     }
 
     @Override
@@ -56,7 +71,7 @@ public class EventMsgController implements IController<EventMsg> {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)*/
-    public ResponseEntity<EventMsg> updateEntity(@PathVariable("id")long id, @RequestBody EventMsg entity, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<EventMsg> updateEntity(@PathVariable("id") long id, @RequestBody EventMsg entity, UriComponentsBuilder ucBuilder) {
         return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
@@ -65,7 +80,7 @@ public class EventMsgController implements IController<EventMsg> {
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)*/
-    public ResponseEntity<EventMsg> updateEntityBySelective(@PathVariable("id")long id, @RequestBody EventMsg entity, UriComponentsBuilder
+    public ResponseEntity<EventMsg> updateEntityBySelective(@PathVariable("id") long id, @RequestBody EventMsg entity, UriComponentsBuilder
             ucBuilder) {
         return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }

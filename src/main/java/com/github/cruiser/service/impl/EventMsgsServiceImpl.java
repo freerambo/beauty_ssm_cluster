@@ -51,4 +51,20 @@ public class EventMsgsServiceImpl implements EventMsgsService {
     public void deleteEntity(long id) {
         return;
     }
+
+    @Override
+    public List<EventMsg> getEntityListByOpenid(String userOpenid, int limit, int offset) {
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        EventMsgExample example = new EventMsgExample();
+        example.createCriteria().andFromUserNameEqualTo(userOpenid);
+        return eventMsgDao.selectByExampleWithRowbounds(example, rowBounds);
+    }
+
+    @Override
+    public List<EventMsg> getEntityListByOrderNumber(String orderNumber, int limit, int offset) {
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        EventMsgExample example = new EventMsgExample();
+        example.createCriteria().andFromUserNameEqualTo(orderNumber);
+        return eventMsgDao.selectByExampleWithRowbounds(example, rowBounds);
+    }
 }
