@@ -3,25 +3,6 @@
 <mapper namespace="com.github.cruiser.dao.RouteDao">
 
 
-	<insert id="insert" parameterType="Route" useGeneratedKeys="true"
-			keyProperty="routeId">
-		INSERT INTO
-		routes(merchant_id, weixin_route, alipay_route, priority)
-		VALUES
-		(#{merchantId},#{weixinRoute},#{alipayRoute},#{priority})
-	</insert>
-
-	<update id="update" parameterType="Route">
-		UPDATE routes
-		<trim prefix="SET" suffixOverrides=",">
-			<if test="merchantId!=null">merchant_id=#{merchantId},</if>
-			<if test="weixinRoute!=null">weixin_route=#{weixinRoute},</if>
-			<if test="alipayRoute!=null">alipay_route=#{alipayRoute},</if>
-			<if test="priority!=null">priority=#{priority},</if>
-		</trim>
-		WHERE route_id = #{routeId}
-	</update>
-
 	<select id="fetchOneByMerchantId" resultType="Route">
 		SELECT *
 		FROM routes
@@ -49,14 +30,6 @@
 		SELECT *
 		FROM routes
 		WHERE upstream_id=#{upstreamId}
-		limit #{offset},#{limit}
-	</select>
-
-	<select id="queryAll" resultType="Route">
-		SELECT *
-		FROM routes
-		ORDER BY
-		priority DESC
 		limit #{offset},#{limit}
 	</select>
 

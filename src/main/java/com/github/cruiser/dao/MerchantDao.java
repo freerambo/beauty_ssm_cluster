@@ -30,19 +30,6 @@ public interface MerchantDao extends MerchantMapper {
             @Param ("limit") int limit,
             @Param("merchantName") String merchantName);
 
-	 /**
-     * 查询所有商户，
-     * 提供偏移量查询功能
-     * 创建时间倒序
-     *
-     * @param offset
-     * @param limit
-     * @return
-     */
-    List<Merchant> queryAll(
-            @Param("offset") int offset,
-            @Param ("limit") int limit );
-
     /**
      * 启用对象
      * @param merchantId

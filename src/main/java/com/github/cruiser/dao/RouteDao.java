@@ -44,16 +44,6 @@ public interface RouteDao extends RouteMapper {
                                   @Param("offset") int offset,
                                   @Param("limit") int limit);
 
-    /**
-     * 根据偏移量查询列表
-     *
-     * @param offset
-     * @param limit
-     * @return
-     */
-    List<Route> queryAll(@Param("offset") int offset, @Param("limit") int
-            limit);
-
     List<Route> queryByUpstreamId(@Param("upstreamId") long upstreamId,
                                   @Param("offset") int offset,
                                   @Param("limit") int limit);
