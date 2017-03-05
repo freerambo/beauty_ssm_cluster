@@ -24,7 +24,8 @@ import java.io.PrintWriter;
 public class GlobalExceptionResolver implements HandlerExceptionResolver {
 
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
-	
+
+	@Override
 	@ResponseBody
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		LOG.error("访问" + request.getRequestURI() + " 发生错误, 错误信息:" + ex.getMessage());

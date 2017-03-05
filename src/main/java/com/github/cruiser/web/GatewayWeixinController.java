@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/wx_gateway")
-public class WeixinController {
+public class GatewayWeixinController {
 
 	private final Logger LOG = Logger.getLogger(this.getClass());
 	@Autowired

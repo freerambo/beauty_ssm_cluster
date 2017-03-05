@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/shanglian")
-public class ShanglianController {
+@RequestMapping("/shanglian_gateway")
+public class GatewayShanglianController {
 
 	private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 	@Autowired

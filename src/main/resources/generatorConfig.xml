@@ -50,6 +50,7 @@
         <javaClientGenerator type="XMLMAPPER"
                              targetPackage="com.github.cruiser.dao"
                              targetProject="MAVEN">
+            <property name="rootInterface" value="com.github.cruiser.dao.AbstractDao"/>
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- XMLMAPPER 方式结束-->

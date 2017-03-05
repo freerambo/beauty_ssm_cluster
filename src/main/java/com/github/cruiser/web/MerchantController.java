@@ -3,6 +3,8 @@ package com.github.cruiser.web;
 import com.github.cruiser.entity.Cashier;
 import com.github.cruiser.entity.Merchant;
 import com.github.cruiser.entity.Route;
+import com.github.cruiser.enums.ResultEnum;
+import com.github.cruiser.exception.BizException;
 import com.github.cruiser.service.MerchantsService;
 import com.github.cruiser.service.RoutesService;
 import org.slf4j.Logger;
@@ -90,8 +92,8 @@ public class MerchantController implements IController<Merchant> {
                                                          @PathVariable("route_id") long route_id) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Route route = routesService.getEntityById(route_id);
-        if (merchant_id != route.getMerchantId()) {
-            return null;
+        if (null == route || merchant_id != route.getMerchantId()) {
+            throw new BizException(ResultEnum.PARAM_ERROR.getMsg());
         }
         return ResponseEntity.ok(route);
     }
@@ -138,17 +140,4 @@ public class MerchantController implements IController<Merchant> {
     }
 
 
-    @RequestMapping(value = "/{id}?action=signin",
-            params = {"open_id"},
-            method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> signinCashier(@PathVariable("id") long id,
-                                                 @RequestParam("open_id") String open_id,
-                                                 @RequestBody Cashier entity,
-                                                 UriComponentsBuilder ucBuilder) {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        //TODO 签到晚点再做
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
-    }
 }
