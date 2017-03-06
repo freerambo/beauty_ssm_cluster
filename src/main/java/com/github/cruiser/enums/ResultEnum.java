@@ -10,26 +10,26 @@ package com.github.cruiser.enums;
 public enum ResultEnum {
 
     // 数据库想操作异常
-    DB_INSERT_RESULT_ERROR("99990001", "db insert error"),
-    DB_UPDATE_RESULT_ERROR("99990002", "db update error"),
-    DB_SELECTONE_IS_NULL("99990003", "db select return null"),
+    DB_INSERT_RESULT_ERROR("DB990001", "db insert error"),
+    DB_UPDATE_RESULT_ERROR("DB990002", "db update error"),
+    DB_SELECTONE_IS_NULL("DB990003", "db select return null"),
 
     // 系统异常
-    INNER_ERROR("99980001", "系统错误"),
-    TOKEN_IS_ILLICIT("99980002", "Token验证非法"),
-    SESSION_IS_OUT_TIME("99980003", "会话超时"),
-
-    // 网络异常
-    HTTP_IO_ERROR("99980004", "http连接失败"),
-    HTTP_RESPONSE_ERROR("99980005", "http返回失败"),
-    // Weixin 异常 TODO
+    INTERNAL_SERVER_ERROR("SERV0004", "系统错误"),
+    HTTP_IO_ERROR("SERV0005", "http连接失败"),
+    HTTP_RESPONSE_ERROR("SERV0006", "http返回失败"),
 
     // 用户相关异常
-    INVALID_USER("1001001", "无效用户"),
+    TOKEN_IS_ILLICIT("CLI00007", "Token验证非法"),
+    SESSION_IS_OUT_TIME("CLI00008", "会话超时"),
+    INVALID_USER("CLI00009", "无效用户"),
+
+    // 网络异常
+    // Weixin 异常 TODO
 
     //数据异常
-    RESOURCE_NOT_EXIST("404", "资源不存在"),
-    PARAM_ERROR("99980006", "参数错误");
+    RESOURCE_NOT_EXIST("CLI00010", "资源不存在"),
+    PARAM_ERROR("CLI00011", "参数错误");
 
     private String resultCode;
     private String resultMsg;

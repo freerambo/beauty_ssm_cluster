@@ -4,15 +4,15 @@ package com.github.cruiser.exception;
  * @author yingjun
  *
  */
-public class BizException extends RuntimeException {
+public class CustomException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public BizException(String message) {
+	public CustomException(String message) {
         super(message);
     }
 
-    public BizException(String message, Throwable cause) {
+    public CustomException(String message, Throwable cause) {
         super(message, cause);
     }
     

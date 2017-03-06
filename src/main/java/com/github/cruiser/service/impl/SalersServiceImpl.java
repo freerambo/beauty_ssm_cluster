@@ -3,9 +3,6 @@ package com.github.cruiser.service.impl;
 import com.github.cruiser.dao.SalerDao;
 import com.github.cruiser.entity.Saler;
 import com.github.cruiser.entity.SalerExample;
-import com.github.cruiser.enums.ResultEnum;
-import com.github.cruiser.exception.BizException;
-import com.github.cruiser.service.SalersService;
 import com.github.cruiser.service.SalersService;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -13,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 @Service

@@ -3,7 +3,7 @@ package com.github.cruiser.web;
 import com.github.cruiser.dto.BaseResult;
 import com.github.cruiser.entity.Goods;
 import com.github.cruiser.enums.ResultEnum;
-import com.github.cruiser.exception.BizException;
+import com.github.cruiser.exception.CustomException;
 import com.github.cruiser.dto.BootStrapTableResult;
 import com.github.cruiser.service.GoodsService;
 import org.slf4j.Logger;
@@ -76,7 +76,7 @@ public abstract class GoodsController {
 		httpSession.setAttribute("sessionTime", System.currentTimeMillis());
 		try {
 			goodsService.buyGoods(userPhone, goods.getGoodsId(), false);
-		}catch (BizException e1) {
+		}catch (CustomException e1) {
 			return new BaseResult<Object>(false, e1.getMessage());
 		}catch (Exception e) {
 			return new BaseResult<Object>(false, ResultEnum.INNER_ERROR.getResultMsg());

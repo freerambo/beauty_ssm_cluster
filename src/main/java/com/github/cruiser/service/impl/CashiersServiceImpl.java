@@ -4,7 +4,7 @@ import com.github.cruiser.dao.CashierDao;
 import com.github.cruiser.entity.Cashier;
 import com.github.cruiser.entity.CashierExample;
 import com.github.cruiser.enums.ResultEnum;
-import com.github.cruiser.exception.BizException;
+import com.github.cruiser.exception.CustomException;
 import com.github.cruiser.service.CashiersService;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class CashiersServiceImpl implements CashiersService {
     @Override
     public void insertEntity(Cashier entity, long merchantId) {
         if (merchantId != entity.getMerchantId()) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getResultMsg());
+            throw new CustomException(ResultEnum.PARAM_ERROR.getResultCode());
         }
         cashierDao.insert(entity);
 
@@ -52,7 +52,7 @@ public class CashiersServiceImpl implements CashiersService {
     @Override
     public Cashier updateEntity(long merchantId, long cashierId, Cashier entity) {
         if (merchantId != entity.getMerchantId() || cashierId != entity.getCashierId()) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getResultMsg());
+            throw new CustomException(ResultEnum.PARAM_ERROR.getResultCode());
         }
         cashierDao.updateByPrimaryKey(entity);
         return cashierDao.selectByPrimaryKey(cashierId);
@@ -61,7 +61,7 @@ public class CashiersServiceImpl implements CashiersService {
     @Override
     public Cashier updateEntityBySelective(long merchantId, long cashierId, Cashier entity) {
         if (merchantId != entity.getMerchantId() || cashierId != entity.getCashierId()) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getResultMsg());
+            throw new CustomException(ResultEnum.PARAM_ERROR.getResultCode());
         }
         cashierDao.updateByPrimaryKeySelective(entity);
         return cashierDao.selectByPrimaryKey(cashierId);
@@ -71,7 +71,7 @@ public class CashiersServiceImpl implements CashiersService {
     public void deleteEntity(long merchantId, long cashierId) {
         Cashier entity = getEntityById(merchantId, cashierId);
         if (null == entity) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getResultMsg());
+            throw new CustomException(ResultEnum.PARAM_ERROR.getResultCode());
         }
         cashierDao.deleteByPrimaryKey(cashierId);
 

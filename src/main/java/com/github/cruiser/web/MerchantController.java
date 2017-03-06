@@ -3,7 +3,7 @@ package com.github.cruiser.web;
 import com.github.cruiser.entity.Merchant;
 import com.github.cruiser.entity.Route;
 import com.github.cruiser.enums.ResultEnum;
-import com.github.cruiser.exception.BizException;
+import com.github.cruiser.exception.CustomException;
 import com.github.cruiser.service.MerchantsService;
 import com.github.cruiser.service.RoutesService;
 import org.slf4j.Logger;
@@ -89,7 +89,7 @@ public class MerchantController implements IController<Merchant> {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Route route = routesService.getEntityById(route_id);
         if (null == route || merchant_id != route.getMerchantId()) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getResultCode());
+            throw new CustomException(ResultEnum.PARAM_ERROR.getResultCode());
         }
         return ResponseEntity.ok(route);
     }

@@ -7,7 +7,7 @@ import com.github.cruiser.dto.WeixinError;
 import com.github.cruiser.dto.WeixinTemplate;
 import com.github.cruiser.dto.WeixinTemplateStringPair;
 import com.github.cruiser.enums.ResultEnum;
-import com.github.cruiser.exception.BizException;
+import com.github.cruiser.exception.CustomException;
 import com.github.cruiser.util.OkHttpUtil;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -56,7 +56,7 @@ public class WeixinService {
 			LOG.debug(response);
 			if (isError(response) || "".equals(response)) {
 				LOG.info("微信返回失败：" + response);
-				throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getResultMsg());
+				throw new CustomException(ResultEnum.HTTP_RESPONSE_ERROR.getResultCode());
 			}
 			WeixinAccessToken weixinAccessToken = JSON.parseObject
 					(response, WeixinAccessToken.class);

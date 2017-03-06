@@ -9,7 +9,7 @@ import com.github.cruiser.entity.RouteExample;
 import com.github.cruiser.entity.Upstream;
 import com.github.cruiser.enums.GatewayType;
 import com.github.cruiser.enums.ResultEnum;
-import com.github.cruiser.exception.BizException;
+import com.github.cruiser.exception.CustomException;
 import com.github.cruiser.service.RoutesService;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class RoutesServiceImpl implements RoutesService {
         Merchant merchant = merchantDao.queryByMerchantCode(merchantCode);
         if (null != merchant) {
             LOG.debug("商户号不存在：" + merchantCode);
-            throw new BizException(ResultEnum.RESOURCE_NOT_EXIST.getResultMsg());
+            throw new CustomException(ResultEnum.RESOURCE_NOT_EXIST.getResultCode());
         }
         return getHightestPriorityById(merchant.getMerchantId(), gatewayType);
     }
@@ -58,19 +58,19 @@ public class RoutesServiceImpl implements RoutesService {
                 gatewayType);
         if (null != route) {
             LOG.debug("路由记录不存在：" + merchantId);
-            throw new BizException(ResultEnum.RESOURCE_NOT_EXIST.getResultMsg());
+            throw new CustomException(ResultEnum.RESOURCE_NOT_EXIST.getResultCode());
         }
         Upstream upstream = upstreamDao.selectByPrimaryKey(route.getUpstreamId());
         if (null != upstream) {
             LOG.debug("上游记录不存在：" + route.getUpstreamId());
-            throw new BizException(ResultEnum.RESOURCE_NOT_EXIST.getResultMsg());
+            throw new CustomException(ResultEnum.RESOURCE_NOT_EXIST.getResultCode());
         }
         if (GatewayType.WEIXIN_GATEWAY.equals(gatewayType)) {
             return upstream.getWeixinGatewayUrl() + route.getQueryString();
         } else if (GatewayType.ALIPAY_GATEWAY.equals(gatewayType)) {
             return upstream.getAlipayGatewayUrl() + route.getQueryString();
         } else {
-            throw new BizException(ResultEnum.RESOURCE_NOT_EXIST.getResultMsg());
+            throw new CustomException(ResultEnum.RESOURCE_NOT_EXIST.getResultCode());
         }
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.github.cruiser.enums.ResultEnum;
-import com.github.cruiser.exception.BizException;
+import com.github.cruiser.exception.CustomException;
 import okhttp3.*;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -128,7 +128,7 @@ public class OkHttpUtil {
 		}
 		catch (IOException e) {
 			logger.error(e, e);
-			throw new BizException(ResultEnum.HTTP_IO_ERROR.getResultMsg(), e);
+			throw new CustomException(ResultEnum.HTTP_IO_ERROR.getResultCode(), e);
 		}
 
 		if (response.isSuccessful()) {
@@ -138,12 +138,12 @@ public class OkHttpUtil {
 			}
 			catch (IOException e) {
 				logger.error(e, e);
-				throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getResultMsg(), e);
+				throw new CustomException(ResultEnum.HTTP_RESPONSE_ERROR.getResultCode(), e);
 			}
 			return responseBody;
 		} else {
 			logger.error("Unexpected code " + response);
-			throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getResultMsg());
+			throw new CustomException(ResultEnum.HTTP_RESPONSE_ERROR.getResultCode());
 		}
 	}
 

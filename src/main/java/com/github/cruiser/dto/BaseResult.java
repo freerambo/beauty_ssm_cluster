@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Deprecated
 public class BaseResult<T> implements Serializable {
 
 
