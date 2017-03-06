@@ -93,4 +93,16 @@ public class OrderController implements IController<Order> {
         return new ResponseEntity(HttpStatus.METHOD_NOT_ALLOWED);
     }
 
+    @RequestMapping(value = "",
+            params = {"limit", "offset", "order_by"},
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Order>> getEntityListByOrder(@RequestParam("limit") int limit,
+                                                            @RequestParam("offset") int offset,
+                                                            @RequestParam("order_by") String orderBy) {
+
+        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
+        return ResponseEntity.ok(service.getEntityListByOrder(offset, limit, orderBy));
+    }
+
 }

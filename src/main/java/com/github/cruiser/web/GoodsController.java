@@ -79,7 +79,7 @@ public abstract class GoodsController {
 		}catch (CustomException e1) {
 			return new BaseResult<Object>(false, e1.getMessage());
 		}catch (Exception e) {
-			return new BaseResult<Object>(false, ResultEnum.INNER_ERROR.getResultMsg());
+			return new BaseResult<Object>(false, ResultEnum.INTERNAL_SERVER_ERROR.getResultMsg());
 		}
 		return new BaseResult<Object>(true, null);
 	}

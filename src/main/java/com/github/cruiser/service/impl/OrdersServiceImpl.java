@@ -69,4 +69,13 @@ public class OrdersServiceImpl implements OrdersService {
         orderDao.updateByPrimaryKeySelective(entity);
         return orderDao.selectByPrimaryKey(id);
     }
+
+    @Override
+    public List<Order> getEntityListByOrder(int offset, int limit, String orderBy) {
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        OrderExample example = new OrderExample();
+        example.setOrderByClause(orderBy);
+        List<Order> list = orderDao.selectByExampleWithRowbounds(example, rowBounds);
+        return list;
+    }
 }
