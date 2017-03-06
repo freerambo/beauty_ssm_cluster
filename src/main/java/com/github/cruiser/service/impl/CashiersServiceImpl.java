@@ -43,7 +43,7 @@ public class CashiersServiceImpl implements CashiersService {
     @Override
     public void insertEntity(Cashier entity, long merchantId) {
         if (merchantId != entity.getMerchantId()) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getMsg());
+            throw new BizException(ResultEnum.PARAM_ERROR.getResultMsg());
         }
         cashierDao.insert(entity);
 
@@ -52,7 +52,7 @@ public class CashiersServiceImpl implements CashiersService {
     @Override
     public Cashier updateEntity(long merchantId, long cashierId, Cashier entity) {
         if (merchantId != entity.getMerchantId() || cashierId != entity.getCashierId()) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getMsg());
+            throw new BizException(ResultEnum.PARAM_ERROR.getResultMsg());
         }
         cashierDao.updateByPrimaryKey(entity);
         return cashierDao.selectByPrimaryKey(cashierId);
@@ -61,7 +61,7 @@ public class CashiersServiceImpl implements CashiersService {
     @Override
     public Cashier updateEntityBySelective(long merchantId, long cashierId, Cashier entity) {
         if (merchantId != entity.getMerchantId() || cashierId != entity.getCashierId()) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getMsg());
+            throw new BizException(ResultEnum.PARAM_ERROR.getResultMsg());
         }
         cashierDao.updateByPrimaryKeySelective(entity);
         return cashierDao.selectByPrimaryKey(cashierId);
@@ -71,7 +71,7 @@ public class CashiersServiceImpl implements CashiersService {
     public void deleteEntity(long merchantId, long cashierId) {
         Cashier entity = getEntityById(merchantId, cashierId);
         if (null == entity) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getMsg());
+            throw new BizException(ResultEnum.PARAM_ERROR.getResultMsg());
         }
         cashierDao.deleteByPrimaryKey(cashierId);
 

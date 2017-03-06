@@ -128,7 +128,7 @@ public class OkHttpUtil {
 		}
 		catch (IOException e) {
 			logger.error(e, e);
-			throw new BizException(ResultEnum.HTTP_IO_ERROR.getMsg(), e);
+			throw new BizException(ResultEnum.HTTP_IO_ERROR.getResultMsg(), e);
 		}
 
 		if (response.isSuccessful()) {
@@ -138,12 +138,12 @@ public class OkHttpUtil {
 			}
 			catch (IOException e) {
 				logger.error(e, e);
-				throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getMsg(), e);
+				throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getResultMsg(), e);
 			}
 			return responseBody;
 		} else {
 			logger.error("Unexpected code " + response);
-			throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getMsg());
+			throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getResultMsg());
 		}
 	}
 

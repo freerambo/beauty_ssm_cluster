@@ -63,7 +63,7 @@ public abstract class GoodsController {
 			@Valid Goods goods, BindingResult result,HttpSession httpSession){
 		LOG.info("invoke----------/"+goods.getGoodsId()+"/buy userPhone:"+userPhone);
 		if (userPhone == null) {
-			return new BaseResult<Object>(false, ResultEnum.INVALID_USER.getMsg());
+			return new BaseResult<Object>(false, ResultEnum.INVALID_USER.getResultMsg());
 		}
 		//Valid 参数验证(这里注释掉，采用AOP的方式验证,见BindingResultAop.java)
 		//if (result.hasErrors()) {
@@ -79,7 +79,7 @@ public abstract class GoodsController {
 		}catch (BizException e1) {
 			return new BaseResult<Object>(false, e1.getMessage());
 		}catch (Exception e) {
-			return new BaseResult<Object>(false, ResultEnum.INNER_ERROR.getMsg());
+			return new BaseResult<Object>(false, ResultEnum.INNER_ERROR.getResultMsg());
 		}
 		return new BaseResult<Object>(true, null);
 	}

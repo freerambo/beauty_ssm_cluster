@@ -56,7 +56,7 @@ public class WeixinService {
 			LOG.debug(response);
 			if (isError(response) || "".equals(response)) {
 				LOG.info("微信返回失败：" + response);
-				throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getMsg());
+				throw new BizException(ResultEnum.HTTP_RESPONSE_ERROR.getResultMsg());
 			}
 			WeixinAccessToken weixinAccessToken = JSON.parseObject
 					(response, WeixinAccessToken.class);

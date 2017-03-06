@@ -1,6 +1,5 @@
 package com.github.cruiser.web;
 
-import com.github.cruiser.entity.Cashier;
 import com.github.cruiser.entity.Merchant;
 import com.github.cruiser.entity.Route;
 import com.github.cruiser.enums.ResultEnum;
@@ -17,9 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +89,7 @@ public class MerchantController implements IController<Merchant> {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         Route route = routesService.getEntityById(route_id);
         if (null == route || merchant_id != route.getMerchantId()) {
-            throw new BizException(ResultEnum.PARAM_ERROR.getMsg());
+            throw new BizException(ResultEnum.PARAM_ERROR.getResultCode());
         }
         return ResponseEntity.ok(route);
     }
