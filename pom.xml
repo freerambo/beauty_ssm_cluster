@@ -240,6 +240,14 @@
         <!--本地jar的路径,相对或者绝对都可以-->
         <!--systemPath>${project.basedir}/lib/alipay-sdk-java20161129201425.jar</systemPath>
     </dependency-->
+        <dependency>
+            <groupId>com.taobao.api</groupId>
+            <artifactId>taobao-sdk-java</artifactId>
+            <version>auto_1455552377940-20160607</version>
+            <scope>system</scope>
+            <!--本地jar的路径,相对或者绝对都可以-->
+            <systemPath>${project.basedir}/lib/taobao-sdk-java-auto_1455552377940-20160607.jar</systemPath>
+        </dependency>
         <!--加签使用阿里sdk end-->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
