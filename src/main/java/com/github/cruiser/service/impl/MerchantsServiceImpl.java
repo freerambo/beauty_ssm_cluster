@@ -82,11 +82,24 @@ public class MerchantsServiceImpl implements MerchantsService {
                                            String settlementAccount,
                                            String salerCode, int limit, int offset) {
         MerchantExample example = new MerchantExample();
-        example.createCriteria().andMerchantCodeEqualTo(merchantCode);
-        example.or().andMerchantTypeEqualTo(merchantType);
-        example.or().andBossCertificateNumberEqualTo(bossCertificateNumber);
-        example.or().andSettlementAccountEqualTo(settlementAccount);
-        example.or().andSalerCodeEqualTo(salerCode);
+        MerchantExample.Criteria criteria = example.createCriteria();
+
+        if (null != merchantCode && !merchantCode.equals("")) {
+            criteria.andMerchantCodeEqualTo(merchantCode);
+        }
+        if (null != merchantType && !merchantType.equals("")) {
+            criteria.andMerchantTypeEqualTo(merchantType);
+        }
+        if (null != bossCertificateNumber && !bossCertificateNumber.equals
+                ("")) {
+            criteria.andBossCertificateNumberEqualTo(bossCertificateNumber);
+        }
+        if (null != settlementAccount && !settlementAccount.equals("")) {
+            criteria.andSettlementAccountEqualTo(settlementAccount);
+        }
+        if (null != salerCode && !salerCode.equals("")) {
+            criteria.andSalerCodeEqualTo(salerCode);
+        }
         return merchantDao.selectByExampleWithRowbounds(example, new RowBounds(offset, limit));
     }
 
