@@ -46,16 +46,19 @@ public class MerchantController implements IController<Merchant> {
                     "settlement_account", "saler_code", "limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Merchant>> queryBySelective(@RequestParam Map params) {
+    public ResponseEntity<List<Merchant>> queryBySelective(@RequestParam
+                                                                   Map<String, String>
+                                                                   params) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        int limit = null == params.get("limit") ? 10 : (int) params.get("limit");
-        int offset = null == params.get("offset") ? 0 : (int) params.get("offset");
+        LOG.debug(params.toString());
+        int limit = null == params.get("limit") ? 10 : Integer.valueOf(params.get("limit"));
+        int offset = null == params.get("offset") ? 0 : Integer.valueOf(params.get("offset"));
         return ResponseEntity.ok(merchantsService.queryBySelective(
-                (String) params.get("merchant_code"),
-                (String) params.get("merchant_type"),
-                (String) params.get("boss_certificate_number"),
-                (String) params.get("settlement_account"),
-                (String) params.get("saler_code"),
+                params.get("merchant_code"),
+                params.get("merchant_type"),
+                params.get("boss_certificate_number"),
+                params.get("settlement_account"),
+                params.get("saler_code"),
                 limit,
                 offset
         ));
