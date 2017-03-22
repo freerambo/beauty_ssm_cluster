@@ -1,0 +1,38 @@
+下载Redis（3.2.100）版本并解压缩，将redis.windows.conf和startup.bat文件覆盖至安装目录。
+双击startup.bat即可。
+
+测试案例：
+发送验证码请求：
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8080/wozhi_app/sms_msgs?action=v_code",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json",
+    "cache-control": "no-cache",
+    "postman-token": "fd220721-f1cf-876c-6a1e-dbc79333fef6"
+  },
+  "processData": false,
+  "data": "{\"custom_name\":\"张三\", \"receive_number\": \"15627862871\"}"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+验证输入验证码是否正确：
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8080/wozhi_app/sms_msgs?action=v_code&receive_number=15627862871&v_code=566761",
+  "method": "GET",
+  "headers": {
+    "cache-control": "no-cache",
+    "postman-token": "a967f823-7ca5-bee5-da70-d096ab4978ef"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});

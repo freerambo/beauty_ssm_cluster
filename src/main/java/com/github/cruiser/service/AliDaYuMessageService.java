@@ -58,9 +58,7 @@ public class AliDaYuMessageService {
         //保存验证码到redis
         String vCode = getVcode();
         String cachedKey = RedisCache.CAHCENAME + "|v_code"+"|"+receiveNumber;
-        cache.putCacheWithExpireTime(cachedKey,
-                vCode,
-                Integer.valueOf(this.overTime)*60);
+        cache.putCacheWithExpireTime(cachedKey, vCode, Integer.valueOf(this.overTime));
 
         //调用淘宝sdk发送短信
 		TaobaoClient client = new DefaultTaobaoClient(url, this.appKey, this.appSecret);
