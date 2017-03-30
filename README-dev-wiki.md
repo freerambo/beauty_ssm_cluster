@@ -53,6 +53,11 @@
 ###spring security 框架
 - [讲述如何在rest服务上集成spring security](http://www.baeldung.com/securing-a-restful-web-service-with-spring-security)
     - [深刻讲述authenticationManager等服务配置](http://docs.spring.io/spring-security/site/docs/3.0.x/reference/core-services.html)
+    - @EnableGlobalMethodSecurity 可以指定 securedEnabled=true 也可以指定
+     prePostEnabled=true，区别在于 前者只能够用于应用简单的基于角色的约束，
+     后者可以基于spring el 表达式来指定约束可以参考：
+     [spring-security-reference](https://vincentmi.gitbooks.io/spring-security-reference-zh/content/3.8_method_security.html)
+     [Expression-Based Access Control](http://docs.spring.io/spring-security/site/docs/3.1.x/reference/el-access.html)
 
 ###BASIC AUTH
 - [Secure Spring REST API using Basic Authentication](http://websystique.com/spring-security/secure-spring-rest-api-using-basic-authentication/)  

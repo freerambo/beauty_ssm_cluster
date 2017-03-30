@@ -20,12 +20,15 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.
-		anonymous().disable()
-		.requestMatchers().antMatchers("/salers/**")
-		.and().authorizeRequests()
-		.antMatchers("/salers/**").access("hasRole('ADMIN')")
-		.and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+		http
+		//.anonymous().disable()
+		.authorizeRequests()
+            .anyRequest()
+                //TODO 需要在上线的时候讲其进行替换
+                //.denyAll()
+                .permitAll()
+		.and()
+		.exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 	}
 
 }

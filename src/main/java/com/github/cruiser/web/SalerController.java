@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -30,6 +31,7 @@ public class SalerController implements IController<Saler> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<Saler>> getEntityListByLimit(@RequestParam("limit") int limit,
                                                             @RequestParam("offset") int offset) {
 
