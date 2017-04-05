@@ -21,7 +21,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http
-		//.anonymous().disable()
+		.anonymous().disable()
 		.authorizeRequests()
             .anyRequest()
                 //TODO 需要在上线的时候讲其进行替换
