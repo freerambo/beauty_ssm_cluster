@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -91,6 +92,7 @@ public class UpstreamController implements IController<Upstream> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<Route>> getRouteEntityByUpstreamId(@PathVariable("id") long id,
                                                                   @RequestParam("limit") int limit,
                                                                   @RequestParam("offset") int offset) {
@@ -101,6 +103,7 @@ public class UpstreamController implements IController<Upstream> {
     @RequestMapping(value = "/{upstream_id}/routes/{route_id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<Route> getRouteEntityByRouteId(@PathVariable("upstream_id") long upstreamId,
                                                          @PathVariable("route_id") long routeId) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -111,6 +114,7 @@ public class UpstreamController implements IController<Upstream> {
             params = {"upstream_name", "limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<Upstream>> queryUpstreamByName(@RequestParam("upstream_name") String upstreamName,
                                                               @RequestParam("limit") int limit,
                                                               @RequestParam("offset") int offset) {

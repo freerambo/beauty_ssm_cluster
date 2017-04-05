@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -46,6 +47,7 @@ public class MerchantController implements IController<Merchant> {
                     "settlement_account", "saler_code", "limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<Merchant>> queryBySelective(@RequestParam
                                                                    Map<String, String>
                                                                    params) {
@@ -77,6 +79,7 @@ public class MerchantController implements IController<Merchant> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<Route>> getRouteEntityByMerchantId(@PathVariable("id") long id,
                                                                   @RequestParam("limit") int limit,
                                                                   @RequestParam("offset") int offset) {
@@ -87,6 +90,7 @@ public class MerchantController implements IController<Merchant> {
     @RequestMapping(value = "/{merchant_id}/routes/{route_id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<Route> getRouteEntityByRouteId(@PathVariable("merchant_id") long merchant_id,
                                                          @PathVariable("route_id") long route_id) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());

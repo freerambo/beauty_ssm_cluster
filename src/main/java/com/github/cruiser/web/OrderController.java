@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -62,6 +63,7 @@ public class OrderController implements IController<Order> {
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Order> updateEntityByParams(@PathVariable("id") long id,
                                                       @RequestParam("settle_order_state") String settleOrderState,
                                                       @RequestParam("settle_state") String settleState,
@@ -110,6 +112,7 @@ public class OrderController implements IController<Order> {
             params = {"limit", "offset", "order_by"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<Order>> getEntityListByOrder(@RequestParam("limit") int limit,
                                                             @RequestParam("offset") int offset,
                                                             @RequestParam("order_by") String orderBy) {

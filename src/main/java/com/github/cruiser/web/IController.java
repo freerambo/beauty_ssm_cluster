@@ -3,6 +3,7 @@ package com.github.cruiser.web;
 import com.github.cruiser.entity.AbstractEntity;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -30,6 +31,7 @@ public interface IController<T extends AbstractEntity> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<T>> getEntityListByLimit(@RequestParam("limit") int limit,
                                                         @RequestParam("offset") int offset);
 
@@ -47,6 +49,7 @@ public interface IController<T extends AbstractEntity> {
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<T> getEntityById(@PathVariable("id") long id);
 
 
@@ -62,6 +65,7 @@ public interface IController<T extends AbstractEntity> {
     @RequestMapping(value = "",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Void> createEntity(@RequestBody T entity,
                                              UriComponentsBuilder ucBuilder);
 
@@ -80,6 +84,7 @@ public interface IController<T extends AbstractEntity> {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<T> updateEntity(@PathVariable("id") long id,
                                           @RequestBody T entity,
                                           UriComponentsBuilder ucBuilder);
@@ -99,6 +104,7 @@ public interface IController<T extends AbstractEntity> {
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<T> updateEntityBySelective(@PathVariable("id") long id,
                                                      @RequestBody T entity,
                                                      UriComponentsBuilder ucBuilder);
@@ -114,6 +120,7 @@ public interface IController<T extends AbstractEntity> {
      */
     @RequestMapping(value = "/{id}",
             method = RequestMethod.DELETE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteEntity(@PathVariable("id") long id);
 
 }

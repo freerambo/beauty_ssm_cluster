@@ -31,7 +31,6 @@ public class SalerController implements IController<Saler> {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<Saler>> getEntityListByLimit(@RequestParam("limit") int limit,
                                                             @RequestParam("offset") int offset) {
 
@@ -92,6 +91,7 @@ public class SalerController implements IController<Saler> {
             params = {"saler_name", "limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<Saler>> querySalerByName(@RequestParam("saler_name") String salerName,
                                                         @RequestParam("limit") int limit,
                                                         @RequestParam("offset") int offset) {

@@ -8,11 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/sms_msgs")
@@ -26,6 +24,7 @@ public class SmsMessageController {
             params = {"action", "receive_number", "v_code"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<Void> getEntityListByLimit(@RequestParam("receive_number") String receiveNumber,
                                                      @RequestParam("v_code") String vCode) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -40,6 +39,7 @@ public class SmsMessageController {
             params = {"action"},
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Void> createEntity(@RequestBody String message,
                                              @RequestParam("action") String action,
                                              UriComponentsBuilder ucBuilder) {

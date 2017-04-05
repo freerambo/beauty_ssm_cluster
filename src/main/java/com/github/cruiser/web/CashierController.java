@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,6 +27,7 @@ public class CashierController {
             params = {"limit", "offset"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<List<Cashier>> getEntityListByLimit(@RequestParam("limit") int limit,
                                                               @RequestParam("offset") int offset,
                                                               @PathVariable("merchant_id") long merchantId) {
@@ -37,6 +39,7 @@ public class CashierController {
     @RequestMapping(value = "/{merchant_id}/cashiers/{cashier_id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<Cashier> getEntityById(@PathVariable("merchant_id") long merchantId, @PathVariable("cashier_id") long cashierId) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         return ResponseEntity.ok(cashiersService.getEntityById(merchantId, cashierId));
@@ -45,6 +48,7 @@ public class CashierController {
     @RequestMapping(value = "/{merchant_id}/cashiers",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Void> createEntity(@RequestBody Cashier entity, UriComponentsBuilder ucBuilder, @PathVariable("merchant_id") long merchantId) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         cashiersService.insertEntity(entity, merchantId);
@@ -55,6 +59,7 @@ public class CashierController {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Cashier> updateEntity(@PathVariable("merchant_id") long merchantId, @PathVariable("cashier_id") long cashierId,
                                                 @RequestBody Cashier entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -65,6 +70,7 @@ public class CashierController {
             method = RequestMethod.PATCH,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Cashier> updateEntityBySelective(@PathVariable("merchant_id") long merchantId, @PathVariable("cashier_id") long cashierId,
                                                            @RequestBody Cashier entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -73,6 +79,7 @@ public class CashierController {
 
     @RequestMapping(value = "/{merchant_id}/cashiers/{cashier_id}",
             method = RequestMethod.DELETE)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteEntity(@PathVariable("merchant_id") long merchantId, @PathVariable("cashier_id") long cashierId) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         cashiersService.deleteEntity(merchantId, cashierId);
@@ -85,6 +92,7 @@ public class CashierController {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public ResponseEntity<Boolean> signinCashier(@PathVariable("merchant_id") long merchantId,
                                                  @RequestParam("open_id") String openId,
                                                  @RequestBody Cashier entity,
