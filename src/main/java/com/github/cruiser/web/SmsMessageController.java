@@ -67,6 +67,8 @@ public class SmsMessageController {
     //https://www.tianmaying.com/tutorial/cross-origin-rest-service
     //https://segmentfault.com/a/1190000007366644
     //https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS
+    //https://bitbucket.org/thetransactioncompany/cors-filter
+    //https://github.com/eBay/cors-filter/blob/master/src/main/java/org/ebaysf/web/cors/CORSFilter.java
     @RequestMapping(value = "",
             params = {"action"},
             method = RequestMethod.OPTIONS)
