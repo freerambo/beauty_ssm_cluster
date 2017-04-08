@@ -63,34 +63,4 @@ public class SmsMessageController {
 
     }
 
-    //http://www.ruanyifeng.com/blog/2016/04/cors.html
-    //https://www.tianmaying.com/tutorial/cross-origin-rest-service
-    //https://segmentfault.com/a/1190000007366644
-    //https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS
-    //https://bitbucket.org/thetransactioncompany/cors-filter
-    //https://github.com/eBay/cors-filter/blob/master/src/main/java/org/ebaysf/web/cors/CORSFilter.java
-    @RequestMapping(value = "",
-            params = {"action"},
-            method = RequestMethod.OPTIONS)
-    public ResponseEntity<Void> beforePost() {
-        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccessControlAllowOrigin("*");
-
-        List<HttpMethod> httpMethodList = new ArrayList<>();
-        httpMethodList.add(HttpMethod.OPTIONS);
-        httpMethodList.add(HttpMethod.GET);
-        httpMethodList.add(HttpMethod.POST);
-
-        headers.setAccessControlAllowMethods(httpMethodList);
-        headers.setAccessControlMaxAge(3600L);
-
-        List<String> allowHeaders = new ArrayList<>();
-        allowHeaders.add("x-requested-with");
-        headers.setAccessControlAllowHeaders(allowHeaders);
-        return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.OK);
-
-    }
-
-
 }

@@ -36,8 +36,19 @@
     由于mapper缺少自定义dao操作，因此使用dao类对mapper类进行继承的方式进行使用。  
     注意：由于配置文件指定targetProject为MAVEN，因此自动生成的model和mapper类都将在maven的target文件夹中，需先执行mybatis-generator:generate，或使用package。
 
-##HTTPS配置
+##跨域资源共享
+###规范说明
+- [W3C 定义](https://www.w3.org/TR/2014/REC-cors-20140116/)
+- [阮一峰解释](http://www.ruanyifeng.com/blog/2016/04/cors.html)
+###网上套件
+- [另外一个实现](https://mvnrepository.com/artifact/com.thetransactioncompany/cors-filter)
+- [ebay 的实现](https://mvnrepository.com/artifact/org.ebaysf.web/cors-filter)
+###其他资料
+- [解释如何自定义一个filter 实现跨域处理机制](https://www.tianmaying.com/tutorial/cross-origin-rest-service)
+- [同源和跨域解释](https://segmentfault.com/a/1190000007366644)
+- [访问控制说明](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)
 
+##HTTPS配置
 ##网站认证方式
 ###spring security 框架
 - [讲述如何在rest服务上集成spring security](http://www.baeldung.com/securing-a-restful-web-service-with-spring-security)
