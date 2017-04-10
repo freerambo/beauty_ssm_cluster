@@ -38,7 +38,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void insertEntity(Order entity) {
-        return;
+        orderDao.insert(entity);
     }
 
     @Override
@@ -68,6 +68,13 @@ public class OrdersServiceImpl implements OrdersService {
         entity.setSettleTime(settleTime);
         orderDao.updateByPrimaryKeySelective(entity);
         return orderDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Order> getEntityListByOrderNumber(String orderNumber) {
+        OrderExample example = new OrderExample();
+        example.createCriteria().andOrderNumberEqualTo(orderNumber);
+        return orderDao.selectByExample(example);
     }
 
     @Override

@@ -15,6 +15,8 @@ public interface OrdersService extends CommonResourceService<Order> {
                                BigDecimal settleAmt,
                                Date settleTime);
 
+    List<Order> getEntityListByOrderNumber(String orderNumber);
+
     List<Order> getEntityListByOrder(int offset,
                                      int limit,
                                      String orderBy);

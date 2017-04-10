@@ -16,6 +16,7 @@ public class UtilService {
 
     /**
      * 检查提供的hash值和自行计算的值是否一致。
+     *
      * @param params
      * @param sign
      * @param charset
@@ -29,6 +30,7 @@ public class UtilService {
     /**
      * 得到待加密的明文字符串，形式如value1value2，并非key1=value1&key2=value2。
      * (按照值的字典序，而不是key名称的字典序。)
+     *
      * @param params
      * @return
      */
@@ -42,7 +44,7 @@ public class UtilService {
         StringBuffer content = new StringBuffer();
         List<String> values = new ArrayList(params.values());
         Collections.sort(values);
-        for (String value: values) {
+        for (String value : values) {
             content.append(value);
         }
         LOG.info(content.toString());
@@ -51,6 +53,7 @@ public class UtilService {
 
     /**
      * 使用sha1进行加签，达到哈希码。
+     *
      * @param content
      * @param charset 暂不支持。
      * @return
@@ -63,11 +66,10 @@ public class UtilService {
             String computedSign = byte2hex(digesta);
             LOG.info("本信息摘要是 :" + computedSign);
             return computedSign;
-        }catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             LOG.error(e.getMessage());
             return "";
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             LOG.error(e.getMessage());
             return "";
         }
@@ -94,5 +96,10 @@ public class UtilService {
             }*/
         }
         return hs.toUpperCase();
+    }
+
+    //TODO 实现sha1withrsa加密
+    public boolean checkShanglianSignContent(Map<String, String> paramsMap, String signature, String encoding) {
+        return true;
     }
 }
