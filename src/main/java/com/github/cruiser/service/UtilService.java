@@ -1,12 +1,17 @@
 package com.github.cruiser.service;
 
+import com.slpay.common.Configure;
+import com.slpay.secure.utils.KeyUtil;
+import com.slpay.secure.utils.RSASignUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.util.*;
 
 @Service
@@ -99,7 +104,16 @@ public class UtilService {
     }
 
     //TODO 实现sha1withrsa加密
-    public boolean checkShanglianSignContent(Map<String, String> paramsMap, String signature, String encoding) {
-        return true;
+    public boolean checkShanglianSignContent(String planeText, String expectSignature, String encoding) {
+        try {
+            PrivateKey privateKey = KeyUtil.getSignRsaPrivateKey(Configure.getSignRsaPrivateKey());
+            String signature = RSASignUtil.signByRsa(planeText, privateKey);
+            LOG.debug("signature:" + signature);
+            LOG.debug("encode signature:" + URLEncoder.encode(signature, encoding));
+            return expectSignature.equals(URLEncoder.encode(signature, encoding));
+        } catch (Exception e) {
+            LOG.error(e.getMessage(),e);
+        }
+        return false;
     }
 }

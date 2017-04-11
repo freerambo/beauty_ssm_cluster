@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,7 +73,8 @@ public class GatewayShanglianController {
             @RequestParam("settleCurrency") String settleCurrency,
             @RequestParam("settleDate") String settleDate,
             @RequestParam("cupReserved") String cupReserved,
-            @RequestParam("cardType") String cardType
+            @RequestParam("cardType") String cardType,
+            HttpServletRequest request
     ) {
         final String SUCCESS_RESPONSE = "sl notice success!";
         Map<String, String> paramsMap = new HashMap<>();
@@ -93,7 +95,8 @@ public class GatewayShanglianController {
         paramsMap.put("cupReserved", cupReserved);
         paramsMap.put("cardType", cardType);
         LOG.info(paramsMap.toString());
-        if (!utilService.checkShanglianSignContent(paramsMap, signature, "UTF-8")) {
+        LOG.info(request.getQueryString());
+        if (!utilService.checkShanglianSignContent(request.getQueryString(), signature, "UTF-8")) {
             return new ResponseEntity<String>("", HttpStatus.BAD_REQUEST);
         }
         if (ordersService.getEntityListByOrderNumber(orderId).size()>0){
