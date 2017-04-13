@@ -8,10 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.*;
 
 @Service
@@ -106,13 +105,13 @@ public class UtilService {
     //TODO 实现sha1withrsa加密
     public boolean checkShanglianSignContent(String planeText, String expectSignature, String encoding) {
         try {
-            PrivateKey privateKey = KeyUtil.getSignRsaPrivateKey(Configure.getSignRsaPrivateKey());
-            String signature = RSASignUtil.signByRsa(planeText, privateKey);
-            LOG.debug("signature:" + signature);
-            LOG.debug("encode signature:" + URLEncoder.encode(signature, encoding));
-            return expectSignature.equals(URLEncoder.encode(signature, encoding));
+            PublicKey publicKey = KeyUtil.getSlpayRsaPublicKey(Configure.getCheckSLRsaPublicKey());
+
+            LOG.debug("Plane text: " + planeText);
+            LOG.debug("Expect signature: " + expectSignature);
+            return RSASignUtil.checkByRsa(planeText, expectSignature, publicKey);
         } catch (Exception e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         return false;
     }
