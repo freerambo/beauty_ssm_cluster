@@ -60,9 +60,11 @@ public class CashiersServiceImpl implements CashiersService {
 
     @Override
     public Cashier updateEntityBySelective(long merchantId, long cashierId, Cashier entity) {
-        if (merchantId != entity.getMerchantId() || cashierId != entity.getCashierId()) {
+        if (null == entity) {
             throw new CustomException(ResultEnum.PARAM_ERROR.getResultCode());
         }
+        entity.setMerchantId(merchantId);
+        entity.setCashierId(cashierId);
         cashierDao.updateByPrimaryKeySelective(entity);
         return cashierDao.selectByPrimaryKey(cashierId);
     }
@@ -80,8 +82,8 @@ public class CashiersServiceImpl implements CashiersService {
     @Override
     public Boolean signIn(long merchantId, String openId) {
         List<Cashier> list = getEntityListByLimit(merchantId, 0, 50);
-        for (Cashier one: list){
-            if (one.getOpenId().equals(openId)){
+        for (Cashier one : list) {
+            if (one.getOpenId().equals(openId)) {
                 one.setIsOncall(true);
                 cashierDao.updateByPrimaryKey(one);
                 return true;

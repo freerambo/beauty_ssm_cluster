@@ -66,8 +66,7 @@ public class CashierController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cashier> updateEntityBySelective(@PathVariable("merchant_id") long merchantId, @PathVariable("cashier_id") long cashierId,
-                                                           @RequestBody Cashier entity, UriComponentsBuilder
-                                                                   ucBuilder) {
+                                                           @RequestBody Cashier entity, UriComponentsBuilder ucBuilder) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
         return new ResponseEntity<Cashier>(cashiersService.updateEntityBySelective(merchantId, cashierId, entity), HttpStatus.OK);
     }
