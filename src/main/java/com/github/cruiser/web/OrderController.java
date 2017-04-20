@@ -35,6 +35,19 @@ public class OrderController implements IController<Order> {
         return ResponseEntity.ok(service.getEntityListByLimit(offset, limit));
     }
 
+    @RequestMapping(value = "",
+            params = {"limit", "offset", "settleOrderState", "merchantCode"},
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Order>> getEntityListByMerchantCode(@RequestParam("limit") int limit,
+                                                                   @RequestParam("offset") int offset,
+                                                                   @RequestParam("settleOrderState") String settleOrderState,
+                                                                   @RequestParam("merchantCode") String merchantCode) {
+
+        LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
+        return ResponseEntity.ok(service.getEntityListByMerchantCode(offset, limit, settleOrderState, merchantCode));
+    }
+
     @Override
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,

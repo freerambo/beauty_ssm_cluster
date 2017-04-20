@@ -2,7 +2,6 @@ package com.github.cruiser.service.impl;
 
 import com.github.cruiser.dao.OrderDao;
 import com.github.cruiser.entity.Order;
-import com.github.cruiser.entity.Order;
 import com.github.cruiser.entity.OrderExample;
 import com.github.cruiser.service.OrdersService;
 import org.apache.ibatis.session.RowBounds;
@@ -82,6 +81,14 @@ public class OrdersServiceImpl implements OrdersService {
         RowBounds rowBounds = new RowBounds(offset, limit);
         OrderExample example = new OrderExample();
         example.setOrderByClause(orderBy);
+        List<Order> list = orderDao.selectByExampleWithRowbounds(example, rowBounds);
+        return list;
+    }
+
+    public List<Order> getEntityListByMerchantCode(int offset, int limit, String settleOrderState, String merchantCode) {
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        OrderExample example = new OrderExample();
+        example.createCriteria().andSettleStateEqualTo(settleOrderState).andMerchantCodeEqualTo(merchantCode);
         List<Order> list = orderDao.selectByExampleWithRowbounds(example, rowBounds);
         return list;
     }

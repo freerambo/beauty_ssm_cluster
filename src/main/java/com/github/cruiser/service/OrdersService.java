@@ -20,4 +20,6 @@ public interface OrdersService extends CommonResourceService<Order> {
     List<Order> getEntityListByOrder(int offset,
                                      int limit,
                                      String orderBy);
+
+    List<Order> getEntityListByMerchantCode(int offset, int limit, String settleOrderState, String merchantCode);
 }
