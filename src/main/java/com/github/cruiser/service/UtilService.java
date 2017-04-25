@@ -115,4 +115,28 @@ public class UtilService {
         }
         return false;
     }
+
+    public String getKeysValuesContent(Map<String, String> params) {
+        if (params == null) {
+            return null;
+        }
+        params.remove("sign");
+        params.remove("signature");
+
+        StringBuffer content = new StringBuffer();
+        List<String> keys = new ArrayList(params.keySet());
+        Collections.sort(keys);
+        for (String key : keys) {
+            if (null != params.get(key) && !"".equals(params.get(key))) {
+                content.append(key);
+                content.append("=");
+                content.append(params.get(key));
+                content.append("&");
+            }
+        }
+        String result = content.substring(0, content.length() - 1);
+        LOG.info(result);
+        return result;
+
+    }
 }

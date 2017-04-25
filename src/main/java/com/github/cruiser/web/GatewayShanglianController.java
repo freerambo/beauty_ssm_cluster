@@ -94,12 +94,14 @@ public class GatewayShanglianController {
         paramsMap.put("settleDate", settleDate);
         paramsMap.put("cupReserved", cupReserved);
         paramsMap.put("cardType", cardType);
-        LOG.info(paramsMap.toString());
-        LOG.info(request.getQueryString());
-        if (!utilService.checkShanglianSignContent(request.getQueryString(), signature, "UTF-8")) {
+        LOG.info("notices: " + paramsMap.toString());
+        LOG.info("**QueryString: " + request.getQueryString());
+        String plantText = utilService.getKeysValuesContent(paramsMap);
+        boolean result = utilService.checkShanglianSignContent(plantText, signature, "");
+        if (!result) {
             return new ResponseEntity<String>("", HttpStatus.BAD_REQUEST);
         }
-        if (ordersService.getEntityListByOrderNumber(orderId).size()>0){
+        if (ordersService.getEntityListByOrderNumber(orderId).size() > 0) {
             return ResponseEntity.ok(SUCCESS_RESPONSE);
         }
         Order order = new Order();
