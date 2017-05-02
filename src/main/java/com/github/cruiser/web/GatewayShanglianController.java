@@ -124,9 +124,9 @@ public class GatewayShanglianController {
                         paramsMap.get("upstreamAlias"),
                         paramsMap.get("merId"));
         String openId = cashiersService.getActiveEntityById(merchantId.longValue()).getOpenId();
-
+        LOG.debug("openId: " + openId);
         weixinService.pushTemplateMsg(openId, orderId, merName,
-                txnTime, txnAmt.toString());
+                txnTime, txnAmt.divide(new BigDecimal("100")).toString());
         return ResponseEntity.ok(SUCCESS_RESPONSE);
     }
 

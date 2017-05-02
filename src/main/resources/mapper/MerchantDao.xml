@@ -47,7 +47,7 @@
         FROM wozhi_route a
             INNER JOIN wozhi_upstream b on a.upstream_id = b.upstream_id
             INNER JOIN wozhi_merchant c on a.merchant_id = c.merchant_id
-        WHERE b.upstream_alias LIKE #{upstreamAlias}
+        WHERE b.upstream_alias = #{upstreamAlias}
             and a.third_merchant_code = #{thirdMerchantCode}
     </select>
 

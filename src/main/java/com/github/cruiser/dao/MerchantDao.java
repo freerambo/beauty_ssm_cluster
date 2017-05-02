@@ -48,7 +48,9 @@ public interface MerchantDao extends MerchantMapper {
      * @param thirdMerchantCode
      * @return
      */
-    String queryMerchantCodeByUpstreamAliasThirdMerchantCode(String upstreamAlias, String thirdMerchantCode);
+    String queryMerchantCodeByUpstreamAliasThirdMerchantCode(
+            @Param("upstreamAlias") String upstreamAlias,
+            @Param("thirdMerchantCode") String thirdMerchantCode);
 
     /**
      *  通过上游别称和第三方商户编号查询商联商户id
@@ -56,5 +58,7 @@ public interface MerchantDao extends MerchantMapper {
      * @param thirdMerchantCode
      * @return
      */
-    Long queryMerchantIdByUpstreamAliasThirdMerchantCode(String upstreamAlias, String thirdMerchantCode);
+    Long queryMerchantIdByUpstreamAliasThirdMerchantCode(
+            @Param("upstreamAlias") String upstreamAlias,
+            @Param("thirdMerchantCode") String thirdMerchantCode);
 }
