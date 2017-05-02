@@ -103,4 +103,14 @@ public class MerchantsServiceImpl implements MerchantsService {
         return merchantDao.selectByExampleWithRowbounds(example, new RowBounds(offset, limit));
     }
 
+    @Override
+    public String queryMerchantCodeByUpstreamAliasThirdMerchantCode(String upstreamAlias, String thirdMerchantCode) {
+        return merchantDao.queryMerchantCodeByUpstreamAliasThirdMerchantCode(upstreamAlias, thirdMerchantCode);
+    }
+
+    @Override
+    public Long queryMerchantIdByUpstreamAliasThirdMerchantCode(String upstreamAlias, String thirdMerchantCode) {
+        return merchantDao.queryMerchantIdByUpstreamAliasThirdMerchantCode(upstreamAlias, thirdMerchantCode);
+    }
+
 }

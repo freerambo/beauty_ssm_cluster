@@ -26,10 +26,13 @@ public class UtilServiceTest {
     @Test
     public void testCheckShanglianSignContent() {
         boolean result = service.checkShanglianSignContent
-                ("currencyCode=156&merId=812440048120327&merName" +
-                                "=李动涛个体户&orderId=149198154010001518&orderQid=1020170412151900124155&orderStau=0006&respTime=null&settleAmount=1&settleCurrency=156&settleDate=null&txnAmt=1&txnTime=20170412151900&txnType=00",
+                ("currencyCode=156&merId=812440048120327&merName=李动涛个体户&orderId=149198154010001518&orderQid=1020170412151900124155&orderStau=0006&respTime=null&settleAmount=1&settleCurrency=156&settleDate=null&txnAmt=1&txnTime=20170412151900&txnType=00",
                         "LiMaxkPF0kQeqwOJE4oMxBoxJgy7mLDypwXbi3d8wKFoYuwdXoEpVWPXt4lfD10yV00aDdESKSHnHQiBFLFw8LiNPW7GnI2Y7qVLD988CB/M4PnXPE3pL4HEfsfPhYDK5gX6gX7RzhggN/z+BXXbb9yKO89A8IfdwRdctK/zOvE=",
-                        "");
+                        "utf-8");
+        result = service.checkShanglianSignContent
+                ("currencyCode=156&merId=812440048120327&merName=李动涛个体户&orderId=149198154010001518&orderQid=1020170412151900124155&orderStau=0006&respTime=null&settleAmount=1&settleCurrency=156&settleDate=null&txnAmt=1&txnTime=20170412151900&txnType=00",
+                        "LiMaxkPF0kQeqwOJE4oMxBoxJgy7mLDypwXbi3d8wKFoYuwdXoEpVWPXt4lfD10yV00aDdESKSHnHQiBFLFw8LiNPW7GnI2Y7qVLD988CB/M4PnXPE3pL4HEfsfPhYDK5gX6gX7RzhggN/z+BXXbb9yKO89A8IfdwRdctK/zOvE=",
+                        "utf-8");
         Assert.assertTrue(result);
     }
 

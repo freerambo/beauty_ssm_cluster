@@ -1,12 +1,6 @@
 package com.github.cruiser.web;
 
-import com.github.cruiser.entity.Order;
-import com.github.cruiser.enums.CommonValue;
-import com.github.cruiser.enums.CurrencyCode;
-import com.github.cruiser.enums.SettleOrderState;
-import com.github.cruiser.enums.SettleState;
-import com.github.cruiser.service.OrdersService;
-import com.github.cruiser.service.UtilService;
+import com.github.cruiser.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -33,7 +26,16 @@ public class GatewayShanglianController {
     private OrdersService ordersService;
 
     @Autowired
+    private WeixinService weixinService;
+
+    @Autowired
     private UtilService utilService;
+
+    @Autowired
+    private MerchantsService merchantsService;
+
+    @Autowired
+    private CashiersService cashiersService;
 
     /**
      * 交易结果主动通知的接口
@@ -96,30 +98,35 @@ public class GatewayShanglianController {
         paramsMap.put("cardType", cardType);
         LOG.info("notices: " + paramsMap.toString());
         LOG.info("**QueryString: " + request.getQueryString());
+
+        //对签名进行校验，检验不通过，返回失败
         String plantText = utilService.getKeysValuesContent(paramsMap);
-        boolean result = utilService.checkShanglianSignContent(plantText, signature, "");
+        boolean result = utilService.checkShanglianSignContent(plantText, signature, "utf-8");
         if (!result) {
+            LOG.info("error signature!");
             return new ResponseEntity<String>("", HttpStatus.BAD_REQUEST);
         }
+        //判断如果之前已经有记录即返回而不做任何操作
         if (ordersService.getEntityListByOrderNumber(orderId).size() > 0) {
+            LOG.info("already one record!");
             return ResponseEntity.ok(SUCCESS_RESPONSE);
         }
-        Order order = new Order();
-        order.setOrderNumber(orderId);
-        order.setMerchantCode(merId);
-        order.setMerchantName(merName);
-        order.setTxnAmt(txnAmt.divide(new BigDecimal("100")));
-        order.setCurrencyCode(
-                currencyCode.equals(CurrencyCode.SHANG_LIAN_CNY_CODE.getValue()) ?
-                        CurrencyCode.YIN_MA_TONG_CNY_CODE.getValue() :
-                        CurrencyCode.DEFAULT_ERROR.getValue());
-        order.setUpstreamOrderState(orderStau);
-        order.setSettleOrderState(SettleOrderState.UNCONFIRM.getValue());
-        order.setSettleState(SettleState.UN_CLEARED.getValue());
-        order.setGmtCreate(new Date());
-        order.setGmtModified(new Date());
-        order.setModifiedPerson(CommonValue.SYSTEM_USER.getValue());
-        ordersService.insertEntity(order);
+        paramsMap.put("upstreamAlias", "SHANGLIAN_DEV");
+        String merchantCode = merchantsService
+                .queryMerchantCodeByUpstreamAliasThirdMerchantCode(
+                        paramsMap.get("upstreamAlias"),
+                        paramsMap.get("merId"));
+        paramsMap.put("merchantCode", merchantCode);
+        ordersService.insertEntityByParams(paramsMap);
+
+        Long merchantId = merchantsService
+                .queryMerchantIdByUpstreamAliasThirdMerchantCode(
+                        paramsMap.get("upstreamAlias"),
+                        paramsMap.get("merId"));
+        String openId = cashiersService.getActiveEntityById(merchantId.longValue()).getOpenId();
+
+        weixinService.pushTemplateMsg(openId, orderId, merName,
+                txnTime, txnAmt.toString());
         return ResponseEntity.ok(SUCCESS_RESPONSE);
     }
 

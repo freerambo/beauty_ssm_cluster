@@ -42,4 +42,19 @@ public interface MerchantDao extends MerchantMapper {
      */
     void disableById(@Param("merchantId") long merchantId);
 
+    /**
+     *  通过上游别称和第三方商户编号查询商联商户编号
+     * @param upstreamAlias
+     * @param thirdMerchantCode
+     * @return
+     */
+    String queryMerchantCodeByUpstreamAliasThirdMerchantCode(String upstreamAlias, String thirdMerchantCode);
+
+    /**
+     *  通过上游别称和第三方商户编号查询商联商户id
+     * @param upstreamAlias
+     * @param thirdMerchantCode
+     * @return
+     */
+    Long queryMerchantIdByUpstreamAliasThirdMerchantCode(String upstreamAlias, String thirdMerchantCode);
 }

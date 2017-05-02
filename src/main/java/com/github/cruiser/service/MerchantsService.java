@@ -16,4 +16,10 @@ public interface MerchantsService extends CommonResourceService<Merchant> {
                                     String bossCertificateNumber,
                                     String settlementAccount, String salerCode,
                                     int limit, int offset);
+
+    String queryMerchantCodeByUpstreamAliasThirdMerchantCode(String upstreamAlias,
+                                                             String thirdMerchantCode);
+
+    Long queryMerchantIdByUpstreamAliasThirdMerchantCode(String upstreamAlias,
+                                                 String thirdMerchantCode);
 }

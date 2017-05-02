@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RoutesServiceImpl implements RoutesService {
@@ -87,7 +87,12 @@ public class RoutesServiceImpl implements RoutesService {
 
     @Override
     public void insertEntity(Route entity) {
-        routeDao.insert(entity);
+        EnumSet<GatewayType> gatewayTypeSet = EnumSet.allOf(GatewayType.class);
+        if (gatewayTypeSet.contains(entity.getGatewayType())){
+            routeDao.insert(entity);
+        }else {
+            throw new CustomException("error gateway type");
+        }
     }
 
     @Override

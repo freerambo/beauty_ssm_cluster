@@ -102,14 +102,17 @@ public class UtilService {
         return hs.toUpperCase();
     }
 
-    //TODO 实现sha1withrsa加密
     public boolean checkShanglianSignContent(String planeText, String expectSignature, String encoding) {
         try {
             PublicKey publicKey = KeyUtil.getSlpayRsaPublicKey(Configure.getCheckSLRsaPublicKey());
 
             LOG.debug("Plane text: " + planeText);
             LOG.debug("Expect signature: " + expectSignature);
-            return RSASignUtil.checkByRsa(planeText, expectSignature, publicKey);
+            //String expectSignatureBase64 = Base64.getEncoder().encodeToString(expectSignature.getBytes(encoding));
+            boolean result = RSASignUtil.checkByRsa(planeText, expectSignature, publicKey);
+            //由于容器对url的解析中，加号（+）会默认被解析为空格
+            result = result || RSASignUtil.checkByRsa(planeText, expectSignature.replaceAll(" ", "+"), publicKey);
+            return result;
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }

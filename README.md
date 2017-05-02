@@ -33,5 +33,7 @@
 - ~~全局exception处理~~
 - (feature)收银员点击查询上一笔交易，我们调用接口查到了最近一笔交易记录后，反馈消息给用户。
 - ~~扩展getbyLimint接口，增加两个选项，一个是排序字段，一个是升降序标志.~~
-- 提供对内的短信接口；
+- 提供对内的短信接口
 - 应该拦截由于sql注入，数据库抛出的500错误
+- bugfix
+    - /wx_app/sign?signature=d554bb49ff7d9f90d4e9a7a6cde73b41fc54b3e9&timestamp=1493603246&nonce=2115957840&openid=o3g--vnH0WoX9KF0EyTeOa1REKhM HTTP/1.1" 405

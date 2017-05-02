@@ -12,6 +12,8 @@ public interface CashiersService {
 
     Cashier getEntityById(long merchantId, long cashierId);
 
+    Cashier getActiveEntityById(long merchantId);
+
     void insertEntity(Cashier entity, long merchantId);
 
     Cashier updateEntity(long merchantId, long cashierId, Cashier entity);

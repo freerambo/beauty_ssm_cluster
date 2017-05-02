@@ -41,6 +41,15 @@ public class CashiersServiceImpl implements CashiersService {
     }
 
     @Override
+    public Cashier getActiveEntityById(long merchantId) {
+        CashierExample example = new CashierExample();
+        example.createCriteria()
+                .andMerchantIdEqualTo(merchantId)
+                .andIsOncallEqualTo(true);
+        return cashierDao.selectByExample(example).get(0);
+    }
+
+    @Override
     public void insertEntity(Cashier entity, long merchantId) {
         if (merchantId != entity.getMerchantId()) {
             throw new CustomException(ResultEnum.PARAM_ERROR.getResultCode());
