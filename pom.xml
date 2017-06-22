@@ -10,6 +10,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <contextPath>/wozhi_app_security</contextPath>
+        <jettyVersion>9.4.5.v20170502</jettyVersion>
         <spring.version>4.2.0.RELEASE</spring.version>
         <springsecurity.version>4.1.1.RELEASE</springsecurity.version>
         <springsecurityoauth2.version>2.0.10.RELEASE</springsecurityoauth2.version>
@@ -336,6 +338,16 @@
                 <version>2.6</version>
             </plugin>
             <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jettyVersion}</version>
+                <configuration>
+                    <webApp>
+                        <contextPath>${contextPath}</contextPath>
+                    </webApp>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
@@ -350,7 +362,7 @@
                     <update>true</update>
                     <!--指定项目路径-->
                     <!--path>/${project.build.finalName}</path-->
-                    <path>/wozhi_app</path>
+                    <path>${contextPath}</path>
                 </configuration>
             </plugin>
             <!--wiki: http://www.mybatis.org/generator/running/runningWithMaven.html-->

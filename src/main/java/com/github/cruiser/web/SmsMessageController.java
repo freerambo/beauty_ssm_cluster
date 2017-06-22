@@ -39,7 +39,7 @@ public class SmsMessageController {
             params = {"action"},
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<Void> createEntity(@RequestBody String message,
                                              @RequestParam("action") String action,
                                              UriComponentsBuilder ucBuilder) {
