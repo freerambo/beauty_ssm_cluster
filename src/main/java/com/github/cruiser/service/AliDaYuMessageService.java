@@ -33,7 +33,7 @@ public class AliDaYuMessageService {
 	private String smsSigname;
 
 	@Value("${server.ali.dayu.sms.overtime}")
-	private String overTime;
+	private int overTime;
 
 	@Value("${server.ali.dayu.sms.vcode.template}")
 	private String vcodeTemplate;
@@ -49,7 +49,7 @@ public class AliDaYuMessageService {
 	    LOG.debug(this.appKey);
         LOG.debug(this.appSecret);
         LOG.debug(this.smsSigname);
-        LOG.debug(this.overTime);
+        LOG.debug(String.valueOf(this.overTime));
         LOG.debug(this.vcodeTemplate);
 
 		String url="http://gw.api.taobao.com/router/rest";
@@ -69,7 +69,7 @@ public class AliDaYuMessageService {
         Map<String, String> paramString = new HashMap<>();
         paramString.put("name", customName);
         paramString.put("v_code", vCode);
-        paramString.put("e_time", overTime);
+        paramString.put("e_time", String.valueOf(overTime/60));
 		req.setSmsParamString(JSON.toJSONString(paramString));
 		req.setRecNum(receiveNumber);
 		req.setSmsTemplateCode(this.vcodeTemplate);
