@@ -103,6 +103,7 @@ var handler = {
 	user : {
 		//详情页初始化
 		init : function(params) {
+		    //[bootstrap table 说明](http://bootstrap-table.wenzhixin.net.cn/zh-cn/getting-started/)
 			//加载商品数据
 			$('#user_table').bootstrapTable({
 				url : handler.URL.userList(), //请求后台的URL（*）
