@@ -1,6 +1,7 @@
 package com.github.cruiser.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +23,13 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private ClientDetailsService clientDetailsService;
-	
+
+	@Value("${server.security.oauth2.realm}")
+	private String REALM;
+
+	@Autowired
+	private MyBasicAuthenticationEntryPoint myBasicAuthenticationEntryPoint;
+
 	@Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
@@ -36,8 +43,12 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 		.csrf().disable()
 		.anonymous().disable()
-	  	.authorizeRequests()
-	  	.antMatchers("/oauth/token").permitAll();
+	  	/*.authorizeRequests()
+	  	.antMatchers("/oauth/token").permitAll()
+		.and()*/
+		//.antMatcher("/sms__msgs").httpBasic().realmName(this.REALM);
+		.antMatcher("/sms__msgs").httpBasic()
+				.authenticationEntryPoint(myBasicAuthenticationEntryPoint);
     }
 
     @Override
