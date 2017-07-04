@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 
 /**
- * @EnableGlobalMethodSecurity 可以指定 securedEnabled=true 也可以指定
+ * <pre>@EnableGlobalMethodSecurity</pre> 可以指定 securedEnabled=true 也可以指定
  * prePostEnabled=true，区别在于 前者只能够用于应用简单的基于角色的约束，
  * 后者可以基于spring el 表达式来指定约束
  * 可以参考：

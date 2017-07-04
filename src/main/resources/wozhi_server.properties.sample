@@ -1,0 +1,34 @@
+#WeiXin Common settings
+server.weixin.api.url=https://api.weixin.qq.com/cgi-bin/
+server.weixin.api.template.id=
+server.weixin.api.template.callback_url=
+server.weixin.api.template.topcolor=#FF0000
+server.weixin.api.template.fontcolor=#173177
+server.weixin.timeout=30000
+server.weixin.charset_name=UTF-8
+server.weixin.isproxy=false
+server.weixin.proxy.url=localhost
+server.weixin.proxy.post=0
+
+#WeiXin token
+server.weixin.token=
+
+#WeiXin Oauth Settings
+server.weixin.appid=
+server.weixin.appsecret=
+
+#alidayu config
+server.ali.dayu.appkey=
+server.ali.dayu.secret=
+server.ali.dayu.sms.signame=
+server.ali.dayu.sms.overtime=600
+server.ali.dayu.sms.vcode.template=
+
+#local server oauth2 settings
+#oauth2 获取access token时需要使用basic auth验证方式
+#算法： BASIC base64.b64encode('client_id:secret')
+server.security.oauth2.client_id=
+server.security.oauth2.secret=
+server.security.oauth2.access_token_timeout=300
+server.security.oauth2.refresh_token_timeout=600
+server.security.oauth2.realm=

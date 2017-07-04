@@ -22,14 +22,20 @@ import org.springframework.stereotype.Component;
 public class OkHttpUtil {
 	private static final Logger logger = Logger.getLogger(OkHttpUtil.class);
 
+	//TODO
+	//Autowired annotation is not supported on static methods: public static void com.github.cruiser.util.OkHttpUtil.setTimeout(int)
 	private static int timeout;
 
+	//Autowired annotation is not supported on static methods: public static void com.github.cruiser.util.OkHttpUtil.setTimeout(int)
 	private static String CHARSET_NAME;
 
+	//Autowired annotation is not supported on static methods: public static void com.github.cruiser.util.OkHttpUtil.setTimeout(int)
 	private static String isProxy;
 
+	//Autowired annotation is not supported on static methods: public static void com.github.cruiser.util.OkHttpUtil.setTimeout(int)
 	private static String proxyUrl;
 
+	//Autowired annotation is not supported on static methods: public static void com.github.cruiser.util.OkHttpUtil.setTimeout(int)
 	private static int proxyPost;
 
 	@Value("${server.weixin.timeout}")
