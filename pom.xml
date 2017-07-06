@@ -308,6 +308,13 @@
             <artifactId>slpay-gateway-java-sdk</artifactId>
             <version>1.0</version>
         </dependency>
+        <!-- 通过annotation方式自动生成getter、setter、tostring方法 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <!-- Build Settings -->
     <!--http://maven.apache.org/pom.html#Build_Settings -->

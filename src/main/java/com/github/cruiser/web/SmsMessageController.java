@@ -24,7 +24,7 @@ public class SmsMessageController {
             params = {"action", "receive_number", "v_code"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_WEIXIN_FRONT')")
     public ResponseEntity<Void> getEntityListByLimit(@RequestParam("receive_number") String receiveNumber,
                                                      @RequestParam("v_code") String vCode) {
         LOG.debug(Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -39,7 +39,7 @@ public class SmsMessageController {
             params = {"action"},
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_WEIXIN_FRONT')")
     public ResponseEntity<Void> createEntity(@RequestBody String message,
                                              @RequestParam("action") String action,
                                              UriComponentsBuilder ucBuilder) {
