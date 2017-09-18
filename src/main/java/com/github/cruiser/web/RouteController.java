@@ -2,6 +2,7 @@ package com.github.cruiser.web;
 
 import com.github.cruiser.entity.Route;
 import com.github.cruiser.entity.Route;
+import com.github.cruiser.enums.GatewayType;
 import com.github.cruiser.service.RoutesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/routes")
@@ -86,4 +88,35 @@ public class RouteController implements IController<Route> {
         return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.CREATED);
     }
 
+    @Autowired
+    private RoutesService routesService;
+
+    /**
+     * 根据路由获取优先级最高的路由记录
+     * @param heads
+     * @param merchantId
+     * @return
+     */
+    @RequestMapping(value = "/merchant_id/{merchantId}", method = RequestMethod
+            .GET)
+    public String getById(@RequestHeader Map<String, String> heads,
+                          @PathVariable("merchantId") long merchantId) {
+        LOG.info("heads: ");
+        LOG.info("-------------------------------");
+        LOG.info(heads.toString());
+        LOG.info("-------------------------------");
+
+        String result = "";
+        String userAgent = heads.get("user-agent");
+        if (userAgent.toLowerCase().contains("MicroMessenger".toLowerCase())) {
+            result = "redirect:" + routesService.getHightestPriorityById(merchantId, GatewayType.WEIXIN_GATEWAY);
+        } else if (userAgent.toLowerCase()
+                .contains("AlipayClient".toLowerCase())) {
+            result = "redirect:" + routesService.getHightestPriorityById(merchantId, GatewayType.ALIPAY_GATEWAY);
+        } else {
+            //TODO 404的页面其实还没有做
+            result = "404";
+        }
+        return result;
+    }
 }
